@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Díaz Pro Painting LLC</title>
-  <meta name="description" content="Díaz Pro Painting LLC — Honest & Professional Service. Residential & commercial painting in Grand Rapids & Wyoming, MI." />
+  <meta name="description" content="Díaz Pro Painting LLC — Residential & commercial painting in Grand Rapids & Wyoming, MI. Free estimates." />
 
   <style>
     :root{
@@ -20,21 +20,22 @@
       --shadow: 0 18px 45px rgba(0,0,0,.55);
       --radius: 22px;
     }
-
     *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1000px 600px at 70% -10%, rgba(255,77,77,.18), transparent 60%),
-                  radial-gradient(900px 600px at 10% 10%, rgba(255,138,76,.14), transparent 60%),
-                  radial-gradient(900px 600px at 50% 100%, rgba(50,213,131,.08), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(1000px 600px at 70% -10%, rgba(255,77,77,.18), transparent 60%),
+        radial-gradient(900px 600px at 10% 10%, rgba(255,138,76,.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(50,213,131,.08), transparent 60%),
+        var(--bg);
       color:var(--text);
       line-height:1.35;
     }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
 
+    /* NAV */
     .nav{
       max-width:1200px;
       margin:0 auto;
@@ -47,10 +48,9 @@
       top:0;
       z-index:50;
       backdrop-filter: blur(14px);
-      background: rgba(7,11,20,.75);
+      background: rgba(7,11,20,.78);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-
     .brand{ display:flex; align-items:center; gap:12px; }
     .badge{
       width:42px; height:42px;
@@ -94,7 +94,7 @@
       border-radius: 12px;
       padding: 9px 10px;
       cursor: pointer;
-      font-weight: 800;
+      font-weight: 900;
     }
     .lang-menu{
       position:absolute;
@@ -115,18 +115,14 @@
       font-size:14px;
       color:var(--muted);
     }
-    .lang-menu a:hover{
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-    }
+    .lang-menu a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
 
-    /* Banner */
+    /* BANNER */
     .banner{
       max-width:1200px;
       margin:0 auto;
       padding:18px 16px 10px;
     }
-
     .banner-shell{
       position:relative;
       border-radius: 26px;
@@ -135,7 +131,6 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-
     .banner-bg{
       position:absolute;
       inset:0;
@@ -144,10 +139,8 @@
         radial-gradient(700px 450px at 30% 30%, rgba(255,138,76,.18), transparent 60%),
         radial-gradient(800px 550px at 30% 110%, rgba(50,213,131,.10), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
-      filter: saturate(1.05);
       pointer-events:none;
     }
-
     .banner-content{
       position:relative;
       z-index:1;
@@ -155,8 +148,10 @@
       grid-template-columns: 1.05fr 1fr;
       gap:18px;
       padding:18px;
+      align-items:stretch;
     }
 
+    /* CAROUSEL */
     .carousel{
       border-radius: 22px;
       border:1px solid rgba(255,255,255,.10);
@@ -169,17 +164,14 @@
       position:relative;
       padding:16px;
     }
-
     .carousel-slide{ display:none; width:100%; height:100%; }
     .carousel-slide.active{ display:block; }
-
     .carousel img{
       width:100%;
       height: 260px;
       object-fit: contain;
       filter: drop-shadow(0 18px 28px rgba(0,0,0,.45));
     }
-
     .dots{
       position:absolute;
       bottom:12px;
@@ -201,13 +193,13 @@
       box-shadow: 0 0 0 3px rgba(255,77,77,.18);
     }
 
+    /* INFO (derecha) */
     .hero{
       border-radius: 22px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
       padding:18px;
     }
-
     h1{
       margin:0 0 8px;
       font-size:40px;
@@ -218,13 +210,7 @@
     }
     .lead{ color:var(--muted); font-size:14px; margin:0 0 14px; }
 
-    .buttons{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
-
+    .buttons{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .btn{
       display:inline-flex;
       align-items:center;
@@ -253,12 +239,7 @@
       color:#05130b;
     }
 
-    .pills{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
+    .pills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .pill{
       padding:8px 12px;
       border-radius:999px;
@@ -268,10 +249,10 @@
       font-weight:800;
       font-size:12px;
     }
-
     .small{ font-size:13px; color:var(--muted); }
     .muted{ color:var(--muted); }
 
+    /* Social (banner mini) */
     .follow-row{
       display:flex;
       align-items:center;
@@ -289,42 +270,27 @@
     }
     .socials{ display:flex; gap:10px; align-items:center; }
     .social-btn{
-      width:42px;
-      height:42px;
+      width:42px; height:42px;
       border-radius:14px;
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08);
       transition:.2s;
     }
-    .social-btn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.08); }
-    .social-btn svg{ width:20px; height:20px; fill:rgba(255,255,255,.9); }
+    .social-btn:hover{
+      transform:translateY(-2px);
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      border-color: transparent;
+    }
+    .social-btn svg{ width:20px; height:20px; fill:#fff; }
 
-    /* Sections */
-    .section{
-      max-width:1200px;
-      margin:0 auto;
-      padding:24px 16px;
-    }
-    h2{
-      margin:0 0 10px;
-      font-size:26px;
-      letter-spacing:-.2px;
-      font-weight: 950;
-    }
+    /* SECTIONS */
+    .section{ max-width:1200px; margin:0 auto; padding:24px 16px; }
+    h2{ margin:0 0 10px; font-size:26px; letter-spacing:-.2px; font-weight: 950; }
     .sub{ color:var(--muted); margin:0 0 18px; font-size:14px; }
 
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .grid2{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:14px;
-    }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
 
     .card{
       border-radius: var(--radius);
@@ -336,25 +302,55 @@
     .card h3{ margin:0 0 6px; font-size:16px; font-weight:950; }
     .card p{ margin:0; color:var(--muted); font-size:13px; }
 
-    .work-box{
-      height:90px;
+    /* SOCIAL SECTION (no vacío + contadores) */
+    .social-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    .social-card{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .social-icon{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      flex:0 0 auto;
+    }
+    .social-icon svg{ width:26px; height:26px; fill:#fff; }
+    .social-meta{ flex:1 1 auto; min-width:0; }
+    .social-meta .title{
+      font-weight:950;
       display:flex;
       align-items:center;
-      justify-content:center;
-      border-radius:18px;
-      border:1px dashed rgba(255,255,255,.18);
-      color:rgba(255,255,255,.45);
-      font-weight:900;
-      background: rgba(0,0,0,.15);
+      justify-content:space-between;
+      gap:10px;
     }
+    .social-handle{ color:var(--muted); font-weight:800; font-size:13px; margin-top:2px; }
+    .social-stats{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .stat{
+      padding:8px 10px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      min-width:120px;
+    }
+    .stat .k{ color:var(--muted2); font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
+    .stat .v{ margin-top:4px; font-weight:950; font-size:18px; }
 
-    /* Reviews */
-    .review-wrap{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-      align-items:start;
-    }
+    /* REVIEWS */
+    .review-wrap{ display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start; }
     .field{ display:grid; gap:6px; margin-top:10px; }
     input, textarea{
       width:100%;
@@ -369,26 +365,26 @@
 
     .stars{
       display:flex;
-      gap:6px;
+      gap:8px;
       margin-top:6px;
-      min-height:32px;
+      min-height:40px;
       align-items:center;
       flex-wrap:wrap;
     }
     .star{
-      width:34px; height:34px;
+      width:42px; height:42px;
       display:grid; place-items:center;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       cursor:pointer;
       user-select:none;
-      font-size:18px;
+      font-size:22px;
       line-height:1;
-      color: rgba(255,255,255,.9);
+      color: rgba(255,255,255,.85);
       transition:.15s;
     }
-    .star:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .star:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
     .star.active{
       background: linear-gradient(135deg, var(--red), var(--orange));
       border:none;
@@ -403,34 +399,19 @@
       padding:12px;
       margin-top:10px;
     }
-    .review-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-    }
+    .review-top{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
     .review-name{ font-weight:950; }
     .review-stars{ color:#ffd166; letter-spacing:1px; }
     .review-text{ margin-top:8px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
 
-    .avg{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-weight:950;
-      color:var(--text);
-    }
+    .avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
     .avg small{ color:var(--muted2); font-weight:900; }
+
     .note{ font-size:12px; color:var(--muted2); margin-top:10px; }
     .sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:10px 0; }
 
-    iframe{
-      width:100%;
-      min-height:260px;
-      border:0;
-      border-radius: 18px;
-    }
+    /* MAP */
+    iframe{ width:100%; min-height:260px; border:0; border-radius: 18px; }
 
     footer{
       max-width:1200px;
@@ -446,30 +427,29 @@
     }
     footer a{ color:rgba(255,255,255,.70); text-decoration:underline; }
 
-    @media (max-width: 980px){
-      .banner-content{ grid-template-columns: 1fr; }
-      h1{ font-size:34px; }
-      .grid3{ grid-template-columns: 1fr; }
-      .grid2{ grid-template-columns: 1fr; }
-      .review-wrap{ grid-template-columns: 1fr; }
-      .navlinks{ justify-content:flex-start; }
+    /* ✅ FREE ESTIMATE MODAL (laptop + mobile scroll) */
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:9999;
     }
-
-    /* ---------- Free Estimate modal (FIXED: laptop fit + mobile scroll) ---------- */
-    .modal{display:none; position:fixed; inset:0; z-index:9999;}
-    .modal[aria-hidden="false"]{display:block;}
-    .modal-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(6px);}
-
+    .modal[aria-hidden="false"]{ display:block; }
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+    }
     .modal-dialog{
       position:relative;
       max-width:980px;
       margin:14px auto;
       width:calc(100% - 20px);
-      height: calc(100dvh - 28px);  /* ✅ dynamic viewport height */
+      height: calc(100dvh - 28px);
       display:flex;
       align-items:stretch;
     }
-
     .modal-card{
       width:100%;
       border-radius:22px;
@@ -489,11 +469,10 @@
       border-bottom:1px solid rgba(255,255,255,.10);
       flex:0 0 auto;
     }
-    .modal-head-left{display:flex; align-items:baseline; gap:10px;}
-    .modal-title{font-weight:900;}
-    .modal-step{font-weight:900; color:rgba(255,255,255,.55);}
+    .modal-head-left{ display:flex; align-items:baseline; gap:10px; }
+    .modal-title{ font-weight:950; }
+    .modal-step{ font-weight:900; color:rgba(255,255,255,.55); }
 
-    /* ✅ scrollable body */
     .modal-body{
       padding:16px;
       overflow:auto;
@@ -501,7 +480,6 @@
       flex:1 1 auto;
       min-height:0;
     }
-
     .modal-foot{
       display:flex;
       justify-content:space-between;
@@ -510,20 +488,50 @@
       border-top:1px solid rgba(255,255,255,.10);
       flex:0 0 auto;
     }
-    .modal-foot .foot-right{display:flex; gap:10px; flex-wrap:wrap;}
+    .modal-foot .foot-right{ display:flex; gap:10px; flex-wrap:wrap; }
 
-    .progress-wrap{height:10px; border-radius:999px; background:rgba(255,255,255,.10); overflow:hidden; border:1px solid rgba(255,255,255,.10);}
-    .progress-bar{height:100%; width:20%; background:linear-gradient(135deg, var(--red), #ffb25a);}
+    .progress-wrap{
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .progress-bar{ height:100%; width:20%; background:linear-gradient(135deg, var(--red), #ffb25a); }
 
-    .est-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:14px; margin-top:14px;}
-    .h3{margin:0 0 10px; font-size:18px;}
-    .est-choice{display:grid; gap:10px; margin-top:12px;}
-    .choice{display:flex; gap:10px; align-items:center; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.18); cursor:pointer;}
-    .choice input{accent-color: var(--red);}
-    select{width:100%; padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.20); color: var(--text);}
+    .est-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:14px; margin-top:14px; }
+    .h3{ margin:0 0 10px; font-size:18px; }
+    .choice{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      cursor:pointer;
+      user-select:none;
+    }
+    .choice input{ accent-color: var(--red); }
 
-    @media (max-width: 900px){
-      .est-grid{grid-template-columns:1fr; }
+    select{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+    }
+
+    @media (max-width: 980px){
+      .banner-content{ grid-template-columns: 1fr; }
+      h1{ font-size:34px; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .review-wrap{ grid-template-columns: 1fr; }
+      .social-grid{ grid-template-columns: 1fr; }
+      .navlinks{ justify-content:flex-start; }
+      .est-grid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -543,8 +551,8 @@
       <a href="#services"><span data-i18n="nav_services">Services</span></a>
       <a href="#social"><span data-i18n="nav_social">Social</span></a>
       <a href="#reviews"><span data-i18n="nav_reviews">Reviews</span></a>
+      <a href="#contact"><span data-i18n="nav_contact">Contact</span></a>
 
-      <!-- ✅ NO CAMBIAR: botón abre modal -->
       <a href="#" class="cta" id="openEstimateTop"><span data-i18n="nav_cta">Free Estimate</span></a>
 
       <div class="lang-wrap">
@@ -594,9 +602,7 @@
           <a class="btn" href="mailto:diazpropaintingllc24@gmail.com">✉️ <span data-i18n="email_btn">Email</span></a>
           <a class="btn whatsapp"
              href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate.%20%2F%20Hola%20D%C3%ADaz%20Pro%20Painting%20LLC!%20Quisiera%20un%20estimado%20gratis."
-             target="_blank" rel="noopener">
-            💬 WhatsApp
-          </a>
+             target="_blank" rel="noopener">💬 WhatsApp</a>
         </div>
 
         <div class="pills">
@@ -615,15 +621,12 @@
           </a>
         </p>
 
-        <!-- SOCIALS (no quitadas) -->
+        <!-- mini social buttons (NO VACÍO) -->
         <div class="follow-row">
           <span class="follow-label" data-i18n="follow_us">Follow us</span>
           <div class="socials">
             <a class="social-btn" href="https://www.instagram.com/diaz.propaintingllc/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.3A4.7 4.7 0 007.3 12 4.7 4.7 0 0012 16.7 4.7 4.7 0 0016.7 12 4.7 4.7 0 0012 7.3zm0 7.7A3 3 0 019 12a3 3 0 013-3 3 3 0 013 3 3 3 0 01-3 3zm4.9-8.8a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
-            </a>
-            <a class="social-btn" href="https://www.facebook.com/diazpropainting" target="_blank" rel="noopener" aria-label="Facebook">
-              <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.5 1.6-1.5h1.7V5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.6V11H7v3h3v8h3.5z"/></svg>
             </a>
             <a class="social-btn" href="https://x.com/DiazProPainting" target="_blank" rel="noopener" aria-label="X">
               <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6L18.3 2zm-1.1 18h1.5L7 3.9H5.4L17.2 20z"/></svg>
@@ -631,7 +634,6 @@
           </div>
         </div>
 
-        <!-- ✅ NO CAMBIAR: botón abre modal -->
         <a class="btn primary" href="#" id="openEstimateBanner" style="margin-top:12px;">🧾 <span data-i18n="nav_cta">Free Estimate</span></a>
       </div>
     </div>
@@ -658,14 +660,51 @@
   </div>
 </section>
 
+<!-- ✅ SOCIAL SECTION (ya no se ve vacío + contadores) -->
 <section id="social" class="section">
-  <h2 data-i18n="recent_title">Recent Work</h2>
-  <p class="sub" data-i18n="recent_sub">Add your before/after photos later. Replace placeholders when ready.</p>
+  <h2 data-i18n="social_title">Social</h2>
+  <p class="sub" data-i18n="social_sub">Follow us and see updates, before/after photos, and promotions.</p>
 
-  <div class="grid3">
-    <div class="work-box">Photo 1</div>
-    <div class="work-box">Photo 2</div>
-    <div class="work-box">Photo 3</div>
+  <div class="social-grid">
+    <!-- Instagram card -->
+    <div class="card social-card">
+      <div class="social-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.3A4.7 4.7 0 007.3 12 4.7 4.7 0 0012 16.7 4.7 4.7 0 0016.7 12 4.7 4.7 0 0012 7.3zm0 7.7A3 3 0 019 12a3 3 0 013-3 3 3 0 013 3 3 3 0 01-3 3zm4.9-8.8a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
+      </div>
+      <div class="social-meta">
+        <div class="title">
+          <span>Instagram</span>
+          <a class="btn" href="https://www.instagram.com/diaz.propaintingllc/" target="_blank" rel="noopener" style="padding:8px 12px;">Open</a>
+        </div>
+        <div class="social-handle">@diaz.propaintingllc</div>
+        <div class="social-stats">
+          <div class="stat"><div class="k" data-i18n="followers">Followers</div><div class="v" id="igFollowers">—</div></div>
+          <div class="stat"><div class="k" data-i18n="posts">Posts</div><div class="v" id="igPosts">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- X card -->
+    <div class="card social-card">
+      <div class="social-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6L18.3 2zm-1.1 18h1.5L7 3.9H5.4L17.2 20z"/></svg>
+      </div>
+      <div class="social-meta">
+        <div class="title">
+          <span>X</span>
+          <a class="btn" href="https://x.com/DiazProPainting" target="_blank" rel="noopener" style="padding:8px 12px;">Open</a>
+        </div>
+        <div class="social-handle">@DiazProPainting</div>
+        <div class="social-stats">
+          <div class="stat"><div class="k" data-i18n="followers">Followers</div><div class="v" id="xFollowers">—</div></div>
+          <div class="stat"><div class="k" data-i18n="posts">Posts</div><div class="v" id="xPosts">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" data-i18n="social_note" style="margin-top:12px;">
+    Note: Live follower counts require API access. For now, numbers can be updated manually in the code.
   </div>
 </section>
 
@@ -718,8 +757,8 @@
   <div class="grid2">
     <div class="card">
       <strong>Díaz Pro Painting LLC</strong><br><br>
-      📍 <span data-i18n="addr_line1">560 34th St SW Apt 301</span><br>
-      <span data-i18n="addr_line2">Wyoming, MI 49509</span><br><br>
+      📍 560 34th St SW Apt 301<br>
+      Wyoming, MI 49509<br><br>
 
       📞 (616) 381-0443<br>
       ✉️ diazpropaintingllc24@gmail.com<br><br>
@@ -727,18 +766,13 @@
       <a class="btn primary"
          href="https://www.google.com/maps/search/?api=1&query=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509"
          target="_blank" rel="noopener"
-         style="width:100%;">
-        🗺️ <span data-i18n="directions_btn">Get Directions</span>
-      </a>
+         style="width:100%;">🗺️ <span data-i18n="directions_btn">Get Directions</span></a>
 
       <a class="btn whatsapp"
          href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate.%20%2F%20Hola%20D%C3%ADaz%20Pro%20Painting%20LLC!%20Quisiera%20un%20estimado%20gratis."
          target="_blank" rel="noopener"
-         style="width:100%; margin-top:10px;">
-        💬 <span data-i18n="whatsapp_btn">Chat on WhatsApp</span>
-      </a>
+         style="width:100%; margin-top:10px;">💬 <span data-i18n="whatsapp_btn">Chat on WhatsApp</span></a>
 
-      <!-- ✅ NO CAMBIAR: botón abre modal -->
       <a class="btn primary" href="#" id="openEstimateContact" style="width:100%; margin-top:10px;">🧾 <span data-i18n="nav_cta">Free Estimate</span></a>
     </div>
 
@@ -761,7 +795,7 @@
   </div>
 </footer>
 
-<!-- FREE ESTIMATE WIZARD MODAL -->
+<!-- ✅ FREE ESTIMATE WIZARD MODAL -->
 <div id="estimateModal" class="modal" aria-hidden="true">
   <div class="modal-backdrop" id="estimateBackdrop"></div>
 
@@ -781,30 +815,16 @@
         </div>
 
         <div class="est-grid">
-          <!-- LEFT: Steps -->
           <div class="card" style="box-shadow:none; margin:0;">
-            <!-- Step 1 -->
             <div class="est-step" data-step="1">
               <h3 class="h3" data-i18n="est_s1_title">What do you need painted?</h3>
               <div class="muted" data-i18n="est_s1_sub">Choose the main type of project.</div>
 
-              <div class="est-choice">
-                <label class="choice">
-                  <input type="radio" name="est_type" value="Interior painting">
-                  <span data-i18n="est_type_interior">Interior painting</span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="est_type" value="Exterior painting">
-                  <span data-i18n="est_type_exterior">Exterior painting</span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="est_type" value="Drywall / repairs">
-                  <span data-i18n="est_type_repairs">Drywall / repairs</span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="est_type" value="Other">
-                  <span data-i18n="est_type_other">Other</span>
-                </label>
+              <div style="display:grid; gap:10px; margin-top:12px;">
+                <label class="choice"><input type="radio" name="est_type" value="Interior painting"><span data-i18n="est_type_interior">Interior painting</span></label>
+                <label class="choice"><input type="radio" name="est_type" value="Exterior painting"><span data-i18n="est_type_exterior">Exterior painting</span></label>
+                <label class="choice"><input type="radio" name="est_type" value="Drywall / repairs"><span data-i18n="est_type_repairs">Drywall / repairs</span></label>
+                <label class="choice"><input type="radio" name="est_type" value="Other"><span data-i18n="est_type_other">Other</span></label>
               </div>
 
               <div class="field" style="margin-top:12px;">
@@ -813,7 +833,6 @@
               </div>
             </div>
 
-            <!-- Step 2 -->
             <div class="est-step" data-step="2" style="display:none;">
               <h3 class="h3" data-i18n="est_s2_title">Project size</h3>
               <div class="muted" data-i18n="est_s2_sub">Give a quick estimate of the area.</div>
@@ -835,7 +854,6 @@
               </div>
             </div>
 
-            <!-- Step 3 -->
             <div class="est-step" data-step="3" style="display:none;">
               <h3 class="h3" data-i18n="est_s3_title">Details</h3>
               <div class="muted" data-i18n="est_s3_sub">Help us price it accurately.</div>
@@ -867,14 +885,15 @@
               </div>
             </div>
 
-            <!-- Step 4 -->
             <div class="est-step" data-step="4" style="display:none;">
               <h3 class="h3" data-i18n="est_s4_title">Photos (optional)</h3>
               <div class="muted" data-i18n="est_s4_sub">If you have photos, you can send them on WhatsApp after submitting.</div>
 
               <div class="card" style="margin-top:12px; background:rgba(255,255,255,.05);">
                 <strong data-i18n="est_photo_tip_title">Tip</strong>
-                <div class="muted" style="margin-top:8px;" data-i18n="est_photo_tip">Take 2–4 photos of the area + one wide photo of the whole room/side of the house.</div>
+                <div class="muted" style="margin-top:8px;" data-i18n="est_photo_tip">
+                  Take 2–4 photos of the area + one wide photo of the whole room/side of the house.
+                </div>
               </div>
 
               <div class="field" style="margin-top:12px;">
@@ -883,7 +902,6 @@
               </div>
             </div>
 
-            <!-- Step 5 -->
             <div class="est-step" data-step="5" style="display:none;">
               <h3 class="h3" data-i18n="est_s5_title">Review & Send</h3>
               <div class="muted" data-i18n="est_s5_sub">Confirm details and send on WhatsApp.</div>
@@ -898,7 +916,6 @@
             </div>
           </div>
 
-          <!-- RIGHT: Customer info -->
           <div class="card" style="box-shadow:none; margin:0;">
             <h3 class="h3" data-i18n="est_contact_title">Your info</h3>
 
@@ -922,7 +939,9 @@
               <input id="estAddress" value="Wyoming / Grand Rapids, MI" />
             </div>
 
-            <div class="note" style="margin-top:10px;" data-i18n="est_privacy">We only use this to answer your estimate request.</div>
+            <div class="note" style="margin-top:10px;" data-i18n="est_privacy">
+              We only use this to answer your estimate request.
+            </div>
           </div>
         </div>
       </div>
@@ -942,175 +961,177 @@
   // Year
   document.getElementById("y").textContent = new Date().getFullYear();
 
-  // ---------- Language dictionary ----------
+  // ✅ MANUAL COUNTERS (EDITA AQUÍ Y LISTO)
+  // (Hasta que quieras “modo real” con API)
+  const SOCIAL_COUNTS = {
+    instagram: { followers: 120, posts: 18 }, // <-- cambia estos números
+    x:        { followers: 35,  posts: 22 }  // <-- cambia estos números
+  };
+
+  function formatCount(n){
+    if(typeof n !== "number") return "—";
+    if(n >= 1000000) return (n/1000000).toFixed(1).replace(".0","") + "M";
+    if(n >= 1000) return (n/1000).toFixed(1).replace(".0","") + "K";
+    return String(n);
+  }
+
+  // Pintar contadores
+  document.getElementById("igFollowers").textContent = formatCount(SOCIAL_COUNTS.instagram.followers);
+  document.getElementById("igPosts").textContent     = formatCount(SOCIAL_COUNTS.instagram.posts);
+  document.getElementById("xFollowers").textContent  = formatCount(SOCIAL_COUNTS.x.followers);
+  document.getElementById("xPosts").textContent      = formatCount(SOCIAL_COUNTS.x.posts);
+
+  // ---------- i18n ----------
   const TEXT = {
     en: {
-      brand_sub: "Honest & Professional Service",
-      nav_services: "Services",
-      nav_social: "Social",
-      nav_reviews: "Reviews",
-      nav_cta: "Free Estimate",
-
-      est_title: "Free Estimate",
-      est_s1_title: "What do you need painted?",
-      est_s1_sub: "Choose the main type of project.",
-      est_type_interior: "Interior painting",
-      est_type_exterior: "Exterior painting",
-      est_type_repairs: "Drywall / repairs",
-      est_type_other: "Other",
-      est_other_label: "If other, describe",
-      est_s2_title: "Project size",
-      est_s2_sub: "Give a quick estimate of the area.",
-      est_rooms: "Rooms / areas",
-      est_sqft: "Approx. Sq Ft",
-      est_surface: "Surface / items",
-      est_s3_title: "Details",
-      est_s3_sub: "Help us price it accurately.",
-      est_when: "When do you want it done?",
-      est_finish: "Finish level",
-      est_notes: "Notes (colors, problems, etc.)",
-      est_s4_title: "Photos (optional)",
-      est_s4_sub: "If you have photos, you can send them on WhatsApp after submitting.",
-      est_photo_tip_title: "Tip",
-      est_photo_tip: "Take 2–4 photos of the area + one wide photo of the whole room/side of the house.",
-      est_best_time: "Best time to contact you",
-      est_s5_title: "Review & Send",
-      est_s5_sub: "Confirm details and send on WhatsApp.",
-      est_send: "Send on WhatsApp",
-      est_contact_title: "Your info",
-      est_name: "Name",
-      est_phone: "Phone",
-      est_email: "Email (optional)",
-      est_address: "Project address",
-      est_privacy: "We only use this to answer your estimate request.",
-      back: "Back",
-      next: "Next",
-      cancel: "Cancel",
-
-      hero_title: "Professional Painting Services",
-      hero_sub: "Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.",
-      call_btn: "Call",
-      email_btn: "Email",
-
-      pill_1: "Free estimates",
-      pill_2: "Clean & on-time",
-      pill_3: "Residential & commercial",
-
-      directions_inline: "Get directions",
-      follow_us: "Follow us",
-
-      rating_title: "Rate our service",
-      rating_label: "Your rating:",
-      name_label: "Name",
-      comment_label: "Comment",
-      submit_review: "Submit Review",
-      rating_note: "Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.",
-
-      services_title: "Services",
-      services_sub: "Quality prep, clean lines, and a durable finish for interiors and exteriors.",
-      svc1: "Interior Painting",
-      svc1_desc: "Walls, ceilings, trim, doors. Clean lines and smooth finish.",
-      svc2: "Exterior Painting",
-      svc2_desc: "Prep, scrape, sand, prime and weather-resistant coatings.",
-      svc3: "Repairs & Drywall",
-      svc3_desc: "Repairs, patches, texture blending and spot paint matching.",
-
-      recent_title: "Recent Work",
-      recent_sub: "Add your before/after photos later. Replace placeholders when ready.",
-
-      reviews_title: "Reviews",
-      reviews_sub: "Customers can leave a rating and comment. Saved on this device (localStorage).",
-      avg_title: "Average",
-
-      contact_title: "Contact",
-      addr_line1: "560 34th St SW Apt 301",
-      addr_line2: "Wyoming, MI 49509",
-      directions_btn: "Get Directions",
-      whatsapp_btn: "Chat on WhatsApp"
+      brand_sub:"Honest & Professional Service",
+      nav_services:"Services",
+      nav_social:"Social",
+      nav_reviews:"Reviews",
+      nav_contact:"Contact",
+      nav_cta:"Free Estimate",
+      hero_title:"Professional Painting Services",
+      hero_sub:"Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.",
+      call_btn:"Call",
+      email_btn:"Email",
+      pill_1:"Free estimates",
+      pill_2:"Clean & on-time",
+      pill_3:"Residential & commercial",
+      directions_inline:"Get directions",
+      follow_us:"Follow us",
+      services_title:"Services",
+      services_sub:"Quality prep, clean lines, and a durable finish for interiors and exteriors.",
+      svc1:"Interior Painting",
+      svc1_desc:"Walls, ceilings, trim, doors. Clean lines and smooth finish.",
+      svc2:"Exterior Painting",
+      svc2_desc:"Prep, scrape, sand, prime and weather-resistant coatings.",
+      svc3:"Repairs & Drywall",
+      svc3_desc:"Repairs, patches, texture blending and spot paint matching.",
+      social_title:"Social",
+      social_sub:"Follow us and see updates, before/after photos, and promotions.",
+      followers:"Followers",
+      posts:"Posts",
+      social_note:"Note: Live follower counts require API access. For now, numbers can be updated manually in the code.",
+      reviews_title:"Reviews",
+      reviews_sub:"Customers can leave a rating and comment. Saved on this device (localStorage).",
+      rating_title:"Rate our service",
+      rating_label:"Your rating:",
+      name_label:"Name",
+      comment_label:"Comment",
+      submit_review:"Submit Review",
+      rating_note:"Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.",
+      avg_title:"Average",
+      contact_title:"Contact",
+      directions_btn:"Get Directions",
+      whatsapp_btn:"Chat on WhatsApp",
+      est_title:"Free Estimate",
+      est_s1_title:"What do you need painted?",
+      est_s1_sub:"Choose the main type of project.",
+      est_type_interior:"Interior painting",
+      est_type_exterior:"Exterior painting",
+      est_type_repairs:"Drywall / repairs",
+      est_type_other:"Other",
+      est_other_label:"If other, describe",
+      est_s2_title:"Project size",
+      est_s2_sub:"Give a quick estimate of the area.",
+      est_rooms:"Rooms / areas",
+      est_sqft:"Approx. Sq Ft",
+      est_surface:"Surface / items",
+      est_s3_title:"Details",
+      est_s3_sub:"Help us price it accurately.",
+      est_when:"When do you want it done?",
+      est_finish:"Finish level",
+      est_notes:"Notes (colors, problems, etc.)",
+      est_s4_title:"Photos (optional)",
+      est_s4_sub:"If you have photos, you can send them on WhatsApp after submitting.",
+      est_photo_tip_title:"Tip",
+      est_photo_tip:"Take 2–4 photos of the area + one wide photo of the whole room/side of the house.",
+      est_best_time:"Best time to contact you",
+      est_s5_title:"Review & Send",
+      est_s5_sub:"Confirm details and send on WhatsApp.",
+      est_send:"Send on WhatsApp",
+      est_contact_title:"Your info",
+      est_name:"Name",
+      est_phone:"Phone",
+      est_email:"Email (optional)",
+      est_address:"Project address",
+      est_privacy:"We only use this to answer your estimate request.",
+      back:"Back", next:"Next", cancel:"Cancel"
     },
     es: {
-      brand_sub: "Servicio honesto y profesional",
-      nav_services: "Servicios",
-      nav_social: "Redes",
-      nav_reviews: "Reseñas",
-      nav_cta: "Estimado Gratis",
-
-      est_title: "Estimado Gratis",
-      est_s1_title: "¿Qué necesitas pintar?",
-      est_s1_sub: "Elige el tipo principal de trabajo.",
-      est_type_interior: "Pintura interior",
-      est_type_exterior: "Pintura exterior",
-      est_type_repairs: "Reparaciones / drywall",
-      est_type_other: "Otro",
-      est_other_label: "Si es otro, describe",
-      est_s2_title: "Tamaño del proyecto",
-      est_s2_sub: "Danos una idea rápida del área.",
-      est_rooms: "Habitaciones / áreas",
-      est_sqft: "Pies² aprox.",
-      est_surface: "Superficie / elementos",
-      est_s3_title: "Detalles",
-      est_s3_sub: "Ayúdanos a calcular mejor el precio.",
-      est_when: "¿Para cuándo lo necesitas?",
-      est_finish: "Nivel de acabado",
-      est_notes: "Notas (colores, problemas, etc.)",
-      est_s4_title: "Fotos (opcional)",
-      est_s4_sub: "Si tienes fotos, puedes enviarlas por WhatsApp después de enviar.",
-      est_photo_tip_title: "Tip",
-      est_photo_tip: "Toma 2–4 fotos del área + una foto amplia de la habitación o fachada.",
-      est_best_time: "Mejor hora para contactarte",
-      est_s5_title: "Revisar y enviar",
-      est_s5_sub: "Confirma los datos y envía por WhatsApp.",
-      est_send: "Enviar por WhatsApp",
-      est_contact_title: "Tus datos",
-      est_name: "Nombre",
-      est_phone: "Teléfono",
-      est_email: "Correo (opcional)",
-      est_address: "Dirección del trabajo",
-      est_privacy: "Solo usamos esto para responder tu solicitud de estimado.",
-      back: "Atrás",
-      next: "Siguiente",
-      cancel: "Cancelar",
-
-      hero_title: "Servicios Profesionales de Pintura",
-      hero_sub: "Pintura residencial y comercial en Grand Rapids y Wyoming, MI. Trabajo limpio, puntual y un acabado que te va a encantar.",
-      call_btn: "Llamar",
-      email_btn: "Correo",
-
-      pill_1: "Estimados gratis",
-      pill_2: "Limpio y puntual",
-      pill_3: "Residencial y comercial",
-
-      directions_inline: "Cómo llegar",
-      follow_us: "Síguenos",
-
-      rating_title: "Califica el servicio",
-      rating_label: "Tu calificación:",
-      name_label: "Nombre",
-      comment_label: "Comentario",
-      submit_review: "Enviar reseña",
-      rating_note: "Nota: Esto se guarda en este dispositivo. Luego podemos conectar Google Reviews para reseñas públicas.",
-
-      services_title: "Servicios",
-      services_sub: "Buena preparación, líneas limpias y un acabado duradero para interiores y exteriores.",
-      svc1: "Pintura Interior",
-      svc1_desc: "Paredes, techos, molduras, puertas. Líneas limpias y acabado suave.",
-      svc2: "Pintura Exterior",
-      svc2_desc: "Preparación, raspado, lijado, imprimación y recubrimientos resistentes al clima.",
-      svc3: "Reparaciones & Drywall",
-      svc3_desc: "Reparaciones, parches, textura y retoques de pintura.",
-
-      recent_title: "Trabajos Recientes",
-      recent_sub: "Luego puedes poner fotos antes/después. Reemplaza los placeholders cuando estés listo.",
-
-      reviews_title: "Reseñas",
-      reviews_sub: "Clientes pueden dejar estrellas y comentario. Se guarda en este dispositivo (localStorage).",
-      avg_title: "Promedio",
-
-      contact_title: "Contacto",
-      addr_line1: "560 34th St SW Apt 301",
-      addr_line2: "Wyoming, MI 49509",
-      directions_btn: "Ver mapa",
-      whatsapp_btn: "Hablar por WhatsApp"
+      brand_sub:"Servicio honesto y profesional",
+      nav_services:"Servicios",
+      nav_social:"Redes",
+      nav_reviews:"Reseñas",
+      nav_contact:"Contacto",
+      nav_cta:"Estimado Gratis",
+      hero_title:"Servicios Profesionales de Pintura",
+      hero_sub:"Pintura residencial y comercial en Grand Rapids y Wyoming, MI. Trabajo limpio, puntual y un acabado que te va a encantar.",
+      call_btn:"Llamar",
+      email_btn:"Correo",
+      pill_1:"Estimados gratis",
+      pill_2:"Limpio y puntual",
+      pill_3:"Residencial y comercial",
+      directions_inline:"Cómo llegar",
+      follow_us:"Síguenos",
+      services_title:"Servicios",
+      services_sub:"Buena preparación, líneas limpias y un acabado duradero para interiores y exteriores.",
+      svc1:"Pintura Interior",
+      svc1_desc:"Paredes, techos, molduras, puertas. Líneas limpias y acabado suave.",
+      svc2:"Pintura Exterior",
+      svc2_desc:"Preparación, raspado, lijado, imprimación y recubrimientos resistentes al clima.",
+      svc3:"Reparaciones & Drywall",
+      svc3_desc:"Reparaciones, parches, textura y retoques de pintura.",
+      social_title:"Redes Sociales",
+      social_sub:"Síguenos para ver trabajos, fotos antes/después y promociones.",
+      followers:"Seguidores",
+      posts:"Publicaciones",
+      social_note:"Nota: Para contar seguidores en tiempo real se necesita API. Por ahora puedes actualizar los números manualmente en el código.",
+      reviews_title:"Reseñas",
+      reviews_sub:"Clientes pueden dejar estrellas y comentario. Se guarda en este dispositivo (localStorage).",
+      rating_title:"Califica el servicio",
+      rating_label:"Tu calificación:",
+      name_label:"Nombre",
+      comment_label:"Comentario",
+      submit_review:"Enviar reseña",
+      rating_note:"Nota: Esto se guarda en este dispositivo. Luego podemos conectar Google Reviews para reseñas públicas.",
+      avg_title:"Promedio",
+      contact_title:"Contacto",
+      directions_btn:"Ver mapa",
+      whatsapp_btn:"Hablar por WhatsApp",
+      est_title:"Estimado Gratis",
+      est_s1_title:"¿Qué necesitas pintar?",
+      est_s1_sub:"Elige el tipo principal de trabajo.",
+      est_type_interior:"Pintura interior",
+      est_type_exterior:"Pintura exterior",
+      est_type_repairs:"Reparaciones / drywall",
+      est_type_other:"Otro",
+      est_other_label:"Si es otro, describe",
+      est_s2_title:"Tamaño del proyecto",
+      est_s2_sub:"Danos una idea rápida del área.",
+      est_rooms:"Habitaciones / áreas",
+      est_sqft:"Pies² aprox.",
+      est_surface:"Superficie / elementos",
+      est_s3_title:"Detalles",
+      est_s3_sub:"Ayúdanos a calcular mejor el precio.",
+      est_when:"¿Para cuándo lo necesitas?",
+      est_finish:"Nivel de acabado",
+      est_notes:"Notas (colores, problemas, etc.)",
+      est_s4_title:"Fotos (opcional)",
+      est_s4_sub:"Si tienes fotos, puedes enviarlas por WhatsApp después de enviar.",
+      est_photo_tip_title:"Tip",
+      est_photo_tip:"Toma 2–4 fotos del área + una foto amplia de la habitación o fachada.",
+      est_best_time:"Mejor hora para contactarte",
+      est_s5_title:"Revisar y enviar",
+      est_s5_sub:"Confirma los datos y envía por WhatsApp.",
+      est_send:"Enviar por WhatsApp",
+      est_contact_title:"Tus datos",
+      est_name:"Nombre",
+      est_phone:"Teléfono",
+      est_email:"Correo (opcional)",
+      est_address:"Dirección del trabajo",
+      est_privacy:"Solo usamos esto para responder tu solicitud de estimado.",
+      back:"Atrás", next:"Siguiente", cancel:"Cancelar"
     }
   };
 
@@ -1152,14 +1173,13 @@
   const dots = Array.from(document.querySelectorAll(".dot"));
   let idx = 0;
   let timer = null;
-
   function showSlide(i){
     idx = i;
-    slides.forEach((s, k)=> s.classList.toggle("active", k===idx));
-    dots.forEach((d, k)=> d.classList.toggle("active", k===idx));
+    slides.forEach((s,k)=> s.classList.toggle("active", k===idx));
+    dots.forEach((d,k)=> d.classList.toggle("active", k===idx));
   }
   function startAuto(){
-    if(timer) clearInterval(timer);
+    clearInterval(timer);
     timer = setInterval(()=> showSlide((idx+1) % slides.length), 3000);
   }
   dots.forEach(d=>{
@@ -1178,7 +1198,6 @@
   const reviewList = document.getElementById("reviewList");
   const avgValue = document.getElementById("avgValue");
   const clearReviews = document.getElementById("clearReviews");
-
   let selectedStars = 0;
 
   function renderStarPicker(){
@@ -1195,19 +1214,13 @@
       starWrap.appendChild(s);
     }
   }
-  renderStarPicker();
-
-  function loadReviews(){
-    try{ return JSON.parse(localStorage.getItem("reviews") || "[]"); }
-    catch(e){ return []; }
-  }
+  function loadReviews(){ try{ return JSON.parse(localStorage.getItem("reviews")||"[]"); }catch(e){ return []; } }
   function saveReviews(arr){ localStorage.setItem("reviews", JSON.stringify(arr)); }
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, m => ({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
     }[m]));
   }
-
   function renderReviews(){
     const arr = loadReviews();
     reviewList.innerHTML = "";
@@ -1215,9 +1228,8 @@
       avgValue.textContent = "—";
       return;
     }
-    const avg = arr.reduce((a,r)=>a+r.stars,0) / arr.length;
+    const avg = arr.reduce((a,r)=>a+r.stars,0)/arr.length;
     avgValue.textContent = avg.toFixed(1) + " / 5";
-
     arr.slice().reverse().forEach(r=>{
       const item = document.createElement("div");
       item.className = "review-item";
@@ -1231,24 +1243,17 @@
       reviewList.appendChild(item);
     });
   }
+  renderStarPicker();
   renderReviews();
 
   submitReview.addEventListener("click", ()=>{
-    const name = (reviewName.value || "").trim();
-    const text = (reviewText.value || "").trim();
-
-    if(!selectedStars){
-      alert("Please select stars / Selecciona estrellas");
-      return;
-    }
-    if(!text){
-      alert("Please write a comment / Escribe un comentario");
-      return;
-    }
+    const name = (reviewName.value||"").trim();
+    const text = (reviewText.value||"").trim();
+    if(!selectedStars){ alert("Please select stars / Selecciona estrellas"); return; }
+    if(!text){ alert("Please write a comment / Escribe un comentario"); return; }
     const arr = loadReviews();
-    arr.push({ name, text, stars: selectedStars, t: Date.now() });
+    arr.push({name, text, stars:selectedStars, t:Date.now()});
     saveReviews(arr);
-
     reviewName.value = "";
     reviewText.value = "";
     selectedStars = 0;
@@ -1261,7 +1266,7 @@
     renderReviews();
   });
 
-  // ---------- Free Estimate Wizard (ONLY FIXES: open + modal scroll) ----------
+  // ---------- Free Estimate Wizard ----------
   const estModal = document.getElementById("estimateModal");
   const estBackdrop = document.getElementById("estimateBackdrop");
   const estClose = document.getElementById("closeEstimate");
@@ -1290,17 +1295,15 @@
     estModal.setAttribute("aria-hidden","true");
     document.body.style.overflow = "";
   }
-
   function estGetType(){
     const sel = document.querySelector('input[name="est_type"]:checked');
     if(!sel) return "";
     if(sel.value === "Other"){
-      const other = (document.getElementById("estOther").value || "").trim();
+      const other = (document.getElementById("estOther").value||"").trim();
       return other || "Other";
     }
     return sel.value;
   }
-
   function estBuildSummary(){
     const t = estGetType();
     const rooms = document.getElementById("estRooms").value;
@@ -1310,48 +1313,43 @@
     const finish = document.getElementById("estFinish").value;
     const notes = (document.getElementById("estNotes").value||"").trim();
     const contactTime = (document.getElementById("estContactTime").value||"").trim();
-
     const name = (document.getElementById("estName").value||"").trim();
     const phone = (document.getElementById("estPhone").value||"").trim();
     const email = (document.getElementById("estEmail").value||"").trim();
     const addr = (document.getElementById("estAddress").value||"").trim();
 
     estSummary.innerHTML = `
-      <div><strong>Project:</strong> ${t || "-"}</div>
-      <div><strong>Rooms/Areas:</strong> ${rooms || "-"}</div>
-      <div><strong>Approx. Sq Ft:</strong> ${sqft || "-"}</div>
-      <div><strong>Surface:</strong> ${surface || "-"}</div>
+      <div><strong>Project:</strong> ${t||"-"}</div>
+      <div><strong>Rooms/Areas:</strong> ${rooms||"-"}</div>
+      <div><strong>Approx. Sq Ft:</strong> ${sqft||"-"}</div>
+      <div><strong>Surface:</strong> ${surface||"-"}</div>
       <hr class="sep">
-      <div><strong>When:</strong> ${when || "-"}</div>
-      <div><strong>Finish:</strong> ${finish || "-"}</div>
-      <div><strong>Notes:</strong> ${notes || "-"}</div>
-      <div><strong>Best contact time:</strong> ${contactTime || "-"}</div>
+      <div><strong>When:</strong> ${when||"-"}</div>
+      <div><strong>Finish:</strong> ${finish||"-"}</div>
+      <div><strong>Notes:</strong> ${notes||"-"}</div>
+      <div><strong>Best contact time:</strong> ${contactTime||"-"}</div>
       <hr class="sep">
-      <div><strong>Name:</strong> ${name || "-"}</div>
-      <div><strong>Phone:</strong> ${phone || "-"}</div>
-      <div><strong>Email:</strong> ${email || "-"}</div>
-      <div><strong>Address:</strong> ${addr || "-"}</div>
+      <div><strong>Name:</strong> ${name||"-"}</div>
+      <div><strong>Phone:</strong> ${phone||"-"}</div>
+      <div><strong>Email:</strong> ${email||"-"}</div>
+      <div><strong>Address:</strong> ${addr||"-"}</div>
       <div class="note" style="margin-top:10px;">After sending, you can attach photos in WhatsApp.</div>
     `;
   }
-
   function estRender(){
-    estSteps.forEach(s => s.style.display = (Number(s.dataset.step) === estStep) ? "block" : "none");
+    estSteps.forEach(s=> s.style.display = (Number(s.dataset.step)===estStep) ? "block" : "none");
     estStepLabel.textContent = `${estStep}/5`;
     estProgress.style.width = `${(estStep/5)*100}%`;
-    estBack.style.visibility = estStep === 1 ? "hidden" : "visible";
-    estNext.style.display = estStep === 5 ? "none" : "inline-flex";
-    if(estStep === 5) estBuildSummary();
+    estBack.style.visibility = (estStep===1) ? "hidden" : "visible";
+    estNext.style.display = (estStep===5) ? "none" : "inline-flex";
+    if(estStep===5) estBuildSummary();
   }
-
   function estValidate(){
-    if(estStep === 1){
-      if(!estGetType()){
-        alert("Select a project type. / Selecciona el tipo de trabajo.");
-        return false;
-      }
+    if(estStep===1 && !estGetType()){
+      alert("Select a project type. / Selecciona el tipo de trabajo.");
+      return false;
     }
-    if(estStep === 5){
+    if(estStep===5){
       const name = (document.getElementById("estName").value||"").trim();
       const phone = (document.getElementById("estPhone").value||"").trim();
       if(!name || !phone){
@@ -1361,38 +1359,35 @@
     }
     return true;
   }
-
   function estReset(){
-    document.querySelectorAll('input[name="est_type"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="est_type"]').forEach(r=> r.checked=false);
     ["estOther","estRooms","estSqft","estSurface","estNotes","estContactTime","estName","estPhone","estEmail"].forEach(id=>{
       const el = document.getElementById(id);
       if(el) el.value = "";
     });
-    const addr = document.getElementById("estAddress");
-    if(addr) addr.value = "Wyoming / Grand Rapids, MI";
+    document.getElementById("estAddress").value = "Wyoming / Grand Rapids, MI";
     document.getElementById("estWhen").value = "ASAP";
     document.getElementById("estFinish").value = "Standard";
   }
 
   estNext.addEventListener("click", ()=>{
     if(!estValidate()) return;
-    estStep = Math.min(5, estStep + 1);
+    estStep = Math.min(5, estStep+1);
     estRender();
   });
   estBack.addEventListener("click", ()=>{
-    estStep = Math.max(1, estStep - 1);
+    estStep = Math.max(1, estStep-1);
     estRender();
   });
 
   estSend.addEventListener("click", ()=>{
     if(!estValidate()) return;
-
     const msg =
 `Free Estimate Request / Solicitud de Estimado
 Name / Nombre: ${document.getElementById("estName").value.trim()}
 Phone / Tel: ${document.getElementById("estPhone").value.trim()}
-Email: ${document.getElementById("estEmail").value.trim() || "-"}
-Address / Dirección: ${document.getElementById("estAddress").value.trim() || "-"}
+Email: ${(document.getElementById("estEmail").value||"").trim() || "-"}
+Address / Dirección: ${(document.getElementById("estAddress").value||"").trim() || "-"}
 
 Project / Trabajo: ${estGetType() || "-"}
 Rooms/Areas: ${document.getElementById("estRooms").value || "-"}
@@ -1412,17 +1407,14 @@ Best contact time: ${(document.getElementById("estContactTime").value||"").trim(
     window.scrollTo({top:0, behavior:"smooth"});
   });
 
-  // ✅ IMPORTANT: re-attach open events (this was the bug)
   [openEstimateTop, openEstimateBanner, openEstimateContact].forEach(btn=>{
     if(btn){
       btn.addEventListener("click", (e)=>{ e.preventDefault(); estOpen(); });
     }
   });
-
   [estBackdrop, estClose, estCancel].forEach(el=>{
     if(el) el.addEventListener("click", estCloseModal);
   });
-
   document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") estCloseModal();
   });
