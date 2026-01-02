@@ -302,23 +302,17 @@
     .card h3{ margin:0 0 6px; font-size:16px; font-weight:950; }
     .card p{ margin:0; color:var(--muted); font-size:13px; }
 
-    /* SOCIAL SECTION (no vacío + contadores) */
+    /* SOCIAL SECTION (con contadores manuales) */
     .social-grid{
       display:grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap:14px;
     }
-    .social-card{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-    }
+    .social-card{ display:flex; gap:14px; align-items:flex-start; }
     .social-icon{
-      width:52px;
-      height:52px;
+      width:52px; height:52px;
       border-radius:18px;
-      display:grid;
-      place-items:center;
+      display:grid; place-items:center;
       background: rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.12);
       flex:0 0 auto;
@@ -428,19 +422,9 @@
     footer a{ color:rgba(255,255,255,.70); text-decoration:underline; }
 
     /* ✅ FREE ESTIMATE MODAL (laptop + mobile scroll) */
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:9999;
-    }
+    .modal{ display:none; position:fixed; inset:0; z-index:9999; }
     .modal[aria-hidden="false"]{ display:block; }
-    .modal-backdrop{
-      position:absolute;
-      inset:0;
-      background:rgba(0,0,0,.65);
-      backdrop-filter: blur(6px);
-    }
+    .modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(6px); }
     .modal-dialog{
       position:relative;
       max-width:980px;
@@ -472,7 +456,6 @@
     .modal-head-left{ display:flex; align-items:baseline; gap:10px; }
     .modal-title{ font-weight:950; }
     .modal-step{ font-weight:900; color:rgba(255,255,255,.55); }
-
     .modal-body{
       padding:16px;
       overflow:auto;
@@ -489,7 +472,6 @@
       flex:0 0 auto;
     }
     .modal-foot .foot-right{ display:flex; gap:10px; flex-wrap:wrap; }
-
     .progress-wrap{
       height:10px;
       border-radius:999px;
@@ -498,7 +480,6 @@
       border:1px solid rgba(255,255,255,.10);
     }
     .progress-bar{ height:100%; width:20%; background:linear-gradient(135deg, var(--red), #ffb25a); }
-
     .est-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:14px; margin-top:14px; }
     .h3{ margin:0 0 10px; font-size:18px; }
     .choice{
@@ -513,7 +494,6 @@
       user-select:none;
     }
     .choice input{ accent-color: var(--red); }
-
     select{
       width:100%;
       padding:12px;
@@ -621,13 +601,23 @@
           </a>
         </p>
 
-        <!-- mini social buttons (NO VACÍO) -->
+        <!-- ✅ mini social buttons (IG + FB + X) -->
         <div class="follow-row">
           <span class="follow-label" data-i18n="follow_us">Follow us</span>
           <div class="socials">
+            <!-- Instagram -->
             <a class="social-btn" href="https://www.instagram.com/diaz.propaintingllc/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.3A4.7 4.7 0 007.3 12 4.7 4.7 0 0012 16.7 4.7 4.7 0 0016.7 12 4.7 4.7 0 0012 7.3zm0 7.7A3 3 0 019 12a3 3 0 013-3 3 3 0 013 3 3 3 0 01-3 3zm4.9-8.8a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
             </a>
+
+            <!-- Facebook  ✅ CAMBIA EL LINK AQUÍ SI ES DIFERENTE -->
+            <a class="social-btn" href="https://www.facebook.com/Diazpropainting" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 12a10 10 0 10-11.6 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0022 12z"/>
+              </svg>
+            </a>
+
+            <!-- X -->
             <a class="social-btn" href="https://x.com/DiazProPainting" target="_blank" rel="noopener" aria-label="X">
               <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6L18.3 2zm-1.1 18h1.5L7 3.9H5.4L17.2 20z"/></svg>
             </a>
@@ -660,13 +650,13 @@
   </div>
 </section>
 
-<!-- ✅ SOCIAL SECTION (ya no se ve vacío + contadores) -->
+<!-- ✅ SOCIAL SECTION (IG + FB + X con contadores manuales) -->
 <section id="social" class="section">
   <h2 data-i18n="social_title">Social</h2>
   <p class="sub" data-i18n="social_sub">Follow us and see updates, before/after photos, and promotions.</p>
 
   <div class="social-grid">
-    <!-- Instagram card -->
+    <!-- Instagram -->
     <div class="card social-card">
       <div class="social-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.3A4.7 4.7 0 007.3 12 4.7 4.7 0 0012 16.7 4.7 4.7 0 0016.7 12 4.7 4.7 0 0012 7.3zm0 7.7A3 3 0 019 12a3 3 0 013-3 3 3 0 013 3 3 3 0 01-3 3zm4.9-8.8a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
@@ -684,7 +674,26 @@
       </div>
     </div>
 
-    <!-- X card -->
+    <!-- Facebook -->
+    <div class="card social-card">
+      <div class="social-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0022 12z"/></svg>
+      </div>
+      <div class="social-meta">
+        <div class="title">
+          <span>Facebook</span>
+          <!-- ✅ CAMBIA EL LINK AQUÍ SI ES DIFERENTE -->
+          <a class="btn" href="https://www.facebook.com/Diazpropainting" target="_blank" rel="noopener" style="padding:8px 12px;">Open</a>
+        </div>
+        <div class="social-handle">/Diazpropainting</div>
+        <div class="social-stats">
+          <div class="stat"><div class="k" data-i18n="followers">Followers</div><div class="v" id="fbFollowers">—</div></div>
+          <div class="stat"><div class="k" data-i18n="posts">Posts</div><div class="v" id="fbPosts">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- X -->
     <div class="card social-card">
       <div class="social-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6L18.3 2zm-1.1 18h1.5L7 3.9H5.4L17.2 20z"/></svg>
@@ -708,6 +717,7 @@
   </div>
 </section>
 
+<!-- ✅ REVIEWS SECTION (NO SE QUITA) -->
 <section id="reviews" class="section">
   <h2 data-i18n="reviews_title">Reviews</h2>
   <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Saved on this device (localStorage).</p>
@@ -961,11 +971,11 @@
   // Year
   document.getElementById("y").textContent = new Date().getFullYear();
 
-  // ✅ MANUAL COUNTERS (EDITA AQUÍ Y LISTO)
-  // (Hasta que quieras “modo real” con API)
+  // ✅ CONTADORES MANUALES (Edita aquí cuando quieras)
   const SOCIAL_COUNTS = {
-    instagram: { followers: 120, posts: 18 }, // <-- cambia estos números
-    x:        { followers: 35,  posts: 22 }  // <-- cambia estos números
+    instagram: { followers: 120, posts: 18 },
+    facebook:  { followers: 80,  posts: 10 },
+    x:         { followers: 35,  posts: 22 }
   };
 
   function formatCount(n){
@@ -978,6 +988,8 @@
   // Pintar contadores
   document.getElementById("igFollowers").textContent = formatCount(SOCIAL_COUNTS.instagram.followers);
   document.getElementById("igPosts").textContent     = formatCount(SOCIAL_COUNTS.instagram.posts);
+  document.getElementById("fbFollowers").textContent = formatCount(SOCIAL_COUNTS.facebook.followers);
+  document.getElementById("fbPosts").textContent     = formatCount(SOCIAL_COUNTS.facebook.posts);
   document.getElementById("xFollowers").textContent  = formatCount(SOCIAL_COUNTS.x.followers);
   document.getElementById("xPosts").textContent      = formatCount(SOCIAL_COUNTS.x.posts);
 
