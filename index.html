@@ -1,301 +1,933 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Díaz Pro Painting LLC</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Díaz Pro Painting LLC</title>
+  <meta name="description" content="Díaz Pro Painting LLC — Painting services in Wyoming & Grand Rapids, MI. Free estimates." />
 
-<style>
-/* === BASE === */
-:root{
-  --bg:#070b14;
-  --red:#ff4d4d;
-  --orange:#ff8a4c;
-  --text:#fff;
-  --muted:rgba(255,255,255,.7);
-  --panel:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:var(--bg);
-  color:var(--text);
-}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+  <style>
+    :root{
+      --bg:#070b14;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --red:#ff4d4d;
+      --orange:#ff8a4c;
+      --shadow: 0 18px 45px rgba(0,0,0,.55);
+      --radius: 22px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1000px 600px at 70% -10%, rgba(255,77,77,.18), transparent 60%),
+        radial-gradient(900px 600px at 10% 10%, rgba(255,138,76,.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(50,213,131,.08), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
 
-/* === NAV === */
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  position:sticky;
-  top:0;
-  background:rgba(7,11,20,.85);
-  backdrop-filter:blur(10px);
-  z-index:100;
-}
-.brand{font-weight:900}
-.nav a{margin-left:14px;font-size:14px;color:var(--muted)}
-.cta{
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  color:#111;
-  padding:8px 14px;
-  border-radius:999px;
-  font-weight:900;
-}
+    /* NAV */
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:16px 16px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,11,20,.78);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .badge{
+      width:42px; height:42px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      font-weight:900;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 10px 25px rgba(255,77,77,.15);
+    }
+    .brand-title{ font-weight:900; letter-spacing:.2px; }
+    .brand-sub{ font-size:12px; color:var(--muted2); margin-top:2px; }
 
-/* === BANNER === */
-.banner{
-  max-width:1200px;
-  margin:auto;
-  padding:20px;
-}
-.banner-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:20px;
-}
-@media(max-width:900px){
-  .banner-box{grid-template-columns:1fr}
-}
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{
+      font-size:14px;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:12px;
+      transition:.2s;
+    }
+    .navlinks a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+    .cta{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color:#0b1020 !important;
+      font-weight:900;
+      padding:10px 14px !important;
+      box-shadow: 0 12px 30px rgba(255,77,77,.18);
+    }
 
-/* === CAROUSEL === */
-.carousel img{
-  height:260px;
-  object-fit:contain;
-}
-.dots{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-top:10px;
-}
-.dot{
-  width:10px;height:10px;
-  border-radius:50%;
-  background:#666;
-  cursor:pointer;
-}
-.dot.active{background:var(--red)}
+    .lang-wrap{ position:relative; }
+    .lang-btn{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 9px 10px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .lang-menu{
+      position:absolute;
+      right:0;
+      top:46px;
+      min-width:160px;
+      background: rgba(7,11,20,.96);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding:8px;
+      display:none;
+    }
+    .lang-menu a{
+      display:block;
+      padding:10px 10px;
+      border-radius:12px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .lang-menu a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
 
-/* === HERO === */
-.hero h1{font-size:38px;margin:0}
-.hero p{color:var(--muted)}
-.btn{
-  display:inline-block;
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  margin:4px 4px 0 0;
-}
-.btn.primary{
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  color:#111;
-  border:none;
-}
-.btn.whatsapp{background:#25d366;color:#111;border:none}
+    /* BANNER */
+    .banner{
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 16px 10px;
+    }
+    .banner-shell{
+      position:relative;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .banner-bg{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 80% 10%, rgba(255,77,77,.22), transparent 60%),
+        radial-gradient(700px 450px at 30% 30%, rgba(255,138,76,.18), transparent 60%),
+        radial-gradient(800px 550px at 30% 110%, rgba(50,213,131,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
+      pointer-events:none;
+    }
+    .banner-content{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap:18px;
+      padding:18px;
+      align-items:stretch;
+    }
 
-/* === SOCIAL ICONS === */
-.socials{display:flex;gap:10px;margin-top:10px}
-.social-btn{
-  width:42px;height:42px;
-  border-radius:14px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.social-btn svg{width:20px;height:20px;fill:#fff}
+    /* CAROUSEL */
+    .carousel{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      min-height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      padding:16px;
+    }
+    .carousel-slide{ display:none; width:100%; height:100%; }
+    .carousel-slide.active{ display:block; }
+    .carousel img{
+      width:100%;
+      height: 260px;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,.45));
+    }
+    .dots{
+      position:absolute;
+      bottom:12px;
+      left:50%;
+      transform: translateX(-50%);
+      display:flex;
+      gap:8px;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background: rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.15);
+      cursor:pointer;
+    }
+    .dot.active{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 0 0 3px rgba(255,77,77,.18);
+    }
 
-/* === SECTIONS === */
-.section{max-width:1200px;margin:auto;padding:30px 20px}
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:900px){.grid3{grid-template-columns:1fr}}
+    /* RIGHT INFO */
+    .hero{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding:18px;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:40px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+      font-weight: 950;
+      text-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    .lead{ color:var(--muted); font-size:14px; margin:0 0 14px; }
 
-/* === REVIEWS === */
-.star{
-  font-size:26px;
-  cursor:pointer;
-}
-.star.active{color:#ffd166}
+    .buttons{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight: 900;
+      cursor:pointer;
+      transition:.2s;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .btn.primary{
+      color:#0b1020;
+      border:none;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 14px 30px rgba(255,77,77,.18);
+    }
+    .btn.whatsapp{
+      background: linear-gradient(135deg, #2bd46f, #1dbf73);
+      border:none;
+      color:#05130b;
+    }
+    .pills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+    }
+    .small{ font-size:13px; color:var(--muted); }
 
-/* === MODAL === */
-.modal{
-  position:fixed;inset:0;
-  display:none;
-  background:rgba(0,0,0,.7);
-  z-index:999;
-}
-.modal.show{display:flex}
-.modal-box{
-  background:#0b1020;
-  border-radius:20px;
-  padding:20px;
-  margin:auto;
-  width:95%;
-  max-width:900px;
-  max-height:90vh;
-  overflow:auto;
-}
-</style>
+    /* mini social in banner */
+    .follow-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .follow-label{
+      color:var(--muted2);
+      font-weight:900;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+    }
+    .socials{ display:flex; gap:10px; align-items:center; }
+    .social-btn{
+      width:42px; height:42px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08);
+      transition:.2s;
+    }
+    .social-btn:hover{
+      transform:translateY(-2px);
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      border-color: transparent;
+    }
+    .social-btn svg{ width:20px; height:20px; fill:#fff; }
+
+    /* SECTIONS */
+    .section{ max-width:1200px; margin:0 auto; padding:24px 16px; }
+    h2{ margin:0 0 10px; font-size:26px; letter-spacing:-.2px; font-weight: 950; }
+    .sub{ color:var(--muted); margin:0 0 18px; font-size:14px; }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+    .card{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .card h3{ margin:0 0 6px; font-size:16px; font-weight:950; }
+    .card p{ margin:0; color:var(--muted); font-size:13px; }
+
+    /* Reviews */
+    .review-wrap{ display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start; }
+    .field{ display:grid; gap:6px; margin-top:10px; }
+    input, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{ min-height:86px; resize:vertical; }
+    .stars{
+      display:flex;
+      gap:8px;
+      margin-top:6px;
+      min-height:40px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .star{
+      width:42px; height:42px;
+      display:grid; place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      user-select:none;
+      font-size:22px;
+      line-height:1;
+      color: rgba(255,255,255,.85);
+      transition:.15s;
+    }
+    .star:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .star.active{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      border:none;
+      color:#0b1020;
+      box-shadow: 0 10px 20px rgba(255,77,77,.18);
+    }
+    .review-item{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding:12px;
+      margin-top:10px;
+    }
+    .review-top{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
+    .review-name{ font-weight:950; }
+    .review-stars{ color:#ffd166; letter-spacing:1px; }
+    .review-text{ margin-top:8px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
+    .avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
+    .avg small{ color:var(--muted2); font-weight:900; }
+
+    /* Map */
+    iframe{ width:100%; min-height:260px; border:0; border-radius: 18px; }
+
+    footer{
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 16px 30px;
+      color:rgba(255,255,255,.55);
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    footer a{ color:rgba(255,255,255,.70); text-decoration:underline; }
+
+    /* MODAL */
+    .modal{ display:none; position:fixed; inset:0; z-index:9999; }
+    .modal[aria-hidden="false"]{ display:block; }
+    .modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(6px); }
+    .modal-dialog{
+      position:relative;
+      max-width:980px;
+      margin:14px auto;
+      width:calc(100% - 20px);
+      height: calc(100dvh - 28px);
+      display:flex;
+      align-items:stretch;
+    }
+    .modal-card{
+      width:100%;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(7,11,20,.92);
+      box-shadow:0 20px 50px rgba(0,0,0,.55);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      flex:0 0 auto;
+    }
+    .modal-title{ font-weight:950; }
+    .modal-body{
+      padding:16px;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      flex:1 1 auto;
+      min-height:0;
+    }
+    .modal-foot{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      padding:16px;
+      border-top:1px solid rgba(255,255,255,.10);
+      flex:0 0 auto;
+    }
+
+    @media (max-width: 980px){
+      .banner-content{ grid-template-columns: 1fr; }
+      h1{ font-size:34px; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .review-wrap{ grid-template-columns: 1fr; }
+      .navlinks{ justify-content:flex-start; }
+    }
+  </style>
 </head>
 
 <body>
-
-<!-- NAV -->
-<div class="nav">
-  <div class="brand">Díaz Pro Painting LLC</div>
-  <div>
-    <a href="#services">Services</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#contact">Contact</a>
-    <a href="#" class="cta" id="openEstimate">Free Estimate</a>
-  </div>
-</div>
-
-<!-- BANNER -->
-<section class="banner">
-  <div class="banner-box">
-    <div class="carousel">
-      <img id="slide" src="hero1.png?v=2">
-      <div class="dots">
-        <div class="dot active" onclick="setSlide(0)"></div>
-        <div class="dot" onclick="setSlide(1)"></div>
-        <div class="dot" onclick="setSlide(2)"></div>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="badge">DP</div>
+      <div>
+        <div class="brand-title">Díaz Pro Painting LLC</div>
+        <div class="brand-sub" data-i18n="brand_sub">Honest & Professional Service</div>
       </div>
     </div>
 
-    <div class="hero">
-      <h1>Professional Painting Services</h1>
-      <p>Residential & commercial painting in Wyoming & Grand Rapids, MI.</p>
+    <div class="navlinks">
+      <a href="#services"><span data-i18n="nav_services">Services</span></a>
+      <a href="#reviews"><span data-i18n="nav_reviews">Reviews</span></a>
+      <a href="#contact"><span data-i18n="nav_contact">Contact</span></a>
+      <a href="#" class="cta" id="openEstimateTop"><span data-i18n="nav_cta">Free Estimate</span></a>
 
-      <a class="btn primary" href="tel:+16163810443">📞 Call</a>
-      <a class="btn whatsapp" href="https://wa.me/16163810443">💬 WhatsApp</a>
-      <a class="btn" href="mailto:diazpropaintingllc24@gmail.com">✉️ Email</a>
+      <div class="lang-wrap">
+        <button class="lang-btn" id="langBtn" type="button">🌐 <span id="langLabel">EN</span></button>
+        <div class="lang-menu" id="langMenu">
+          <a href="#" data-lang="en">English</a>
+          <a href="#" data-lang="es">Español</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-      <!-- SOCIAL -->
-      <div class="socials">
-        <!-- Instagram -->
-        <a class="social-btn" href="https://www.instagram.com/diaz.propaintingllc/" target="_blank">
-          <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7z"/></svg>
-        </a>
+<section class="banner" id="top">
+  <div class="banner-shell">
+    <div class="banner-bg"></div>
 
-        <!-- Facebook (LIMPIO) -->
-        <a class="social-btn"
-           href="https://www.facebook.com/profile.php?id=61586200463993"
-           target="_blank">
-          <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0022 12z"/></svg>
-        </a>
+    <div class="banner-content">
+      <!-- LEFT: Carousel (4 images) -->
+      <div class="carousel" id="carousel">
+        <div class="carousel-slide active"><img src="hero1.png?v=3" alt="Hero 1"></div>
+        <div class="carousel-slide"><img src="hero2.png?v=3" alt="Hero 2"></div>
+        <div class="carousel-slide"><img src="hero3.png?v=3" alt="Hero 3"></div>
+        <div class="carousel-slide"><img src="hero4.png?v=3" alt="Hero 4"></div>
 
-        <!-- X -->
-        <a class="social-btn" href="https://x.com/DiazProPainting" target="_blank">
-          <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6z"/></svg>
-        </a>
+        <div class="dots" aria-label="Carousel controls">
+          <div class="dot active" data-index="0" aria-label="Slide 1"></div>
+          <div class="dot" data-index="1" aria-label="Slide 2"></div>
+          <div class="dot" data-index="2" aria-label="Slide 3"></div>
+          <div class="dot" data-index="3" aria-label="Slide 4"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Info -->
+      <div class="hero">
+        <h1 data-i18n="hero_title">Professional Painting Services</h1>
+        <p class="lead" data-i18n="hero_sub">
+          Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.
+        </p>
+
+        <div class="buttons">
+          <a class="btn primary" href="tel:+16163810443">📞 <span data-i18n="call_btn">Call</span> (616) 381-0443</a>
+          <a class="btn" href="mailto:diazpropaintingllc24@gmail.com">✉️ <span data-i18n="email_btn">Email</span></a>
+          <a class="btn whatsapp"
+             href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate.%20%2F%20Hola%20D%C3%ADaz%20Pro%20Painting%20LLC!%20Quisiera%20un%20estimado%20gratis."
+             target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+
+        <div class="pills">
+          <span class="pill" data-i18n="pill_1">Free estimates</span>
+          <span class="pill" data-i18n="pill_2">Clean & on-time</span>
+          <span class="pill" data-i18n="pill_3">Residential & commercial</span>
+        </div>
+
+        <p class="small" style="margin-top:12px;">
+          📍 560 34th St SW Apt 301, Wyoming, MI 49509 •
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509"
+            target="_blank" rel="noopener"
+            style="text-decoration:underline;">
+            <span data-i18n="directions_inline">Get directions</span>
+          </a>
+        </p>
+
+        <!-- Social buttons -->
+        <div class="follow-row">
+          <span class="follow-label" data-i18n="follow_us">Follow us</span>
+          <div class="socials">
+            <!-- Instagram -->
+            <a class="social-btn" href="https://www.instagram.com/diaz.propaintingllc/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.3A4.7 4.7 0 007.3 12 4.7 4.7 0 0012 16.7 4.7 4.7 0 0016.7 12 4.7 4.7 0 0012 7.3zm0 7.7A3 3 0 019 12a3 3 0 013-3 3 3 0 013 3 3 3 0 01-3 3zm4.9-8.8a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
+            </a>
+
+            <!-- Facebook (limpio) -->
+            <a class="social-btn" href="https://www.facebook.com/profile.php?id=61586200463993" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 12a10 10 0 10-11.6 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0022 12z"/>
+              </svg>
+            </a>
+
+            <!-- X -->
+            <a class="social-btn" href="https://x.com/DiazProPainting" target="_blank" rel="noopener" aria-label="X">
+              <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.2l-4.8-6.2L5.5 22H3l7-8L2 2h6.3l4.3 5.6L18.3 2zm-1.1 18h1.5L7 3.9H5.4L17.2 20z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <a class="btn primary" href="#" id="openEstimateBanner" style="margin-top:12px;">🧾 <span data-i18n="nav_cta">Free Estimate</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="section" id="services">
-  <h2>Services</h2>
+<section id="services" class="section">
+  <h2 data-i18n="services_title">Services</h2>
+  <p class="sub" data-i18n="services_sub">Quality prep, clean lines, and a durable finish for interiors and exteriors.</p>
+
   <div class="grid3">
-    <div class="card">Interior Painting</div>
-    <div class="card">Exterior Painting</div>
-    <div class="card">Drywall & Repairs</div>
+    <div class="card">
+      <h3 data-i18n="svc1">Interior Painting</h3>
+      <p data-i18n="svc1_desc">Walls, ceilings, trim, doors. Clean lines and smooth finish.</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="svc2">Exterior Painting</h3>
+      <p data-i18n="svc2_desc">Prep, scrape, sand, prime and weather-resistant coatings.</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="svc3">Repairs & Drywall</h3>
+      <p data-i18n="svc3_desc">Repairs, patches, texture blending and spot paint matching.</p>
+    </div>
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section class="section" id="reviews">
-  <h2>Reviews</h2>
-  <div class="card">
-    <div id="stars"></div>
-    <textarea id="reviewText" placeholder="Write your review..."></textarea>
-    <br><br>
-    <button class="btn primary" onclick="saveReview()">Submit</button>
-    <div id="reviewList"></div>
+<section id="reviews" class="section">
+  <h2 data-i18n="reviews_title">Reviews</h2>
+  <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Saved on this device (localStorage).</p>
+
+  <div class="review-wrap">
+    <div class="card">
+      <strong data-i18n="rating_title">Rate our service</strong>
+
+      <div class="field">
+        <label class="small" data-i18n="name_label">Name</label>
+        <input id="reviewName" placeholder="Name" />
+      </div>
+
+      <div class="field">
+        <label class="small" data-i18n="rating_label">Your rating:</label>
+        <div class="stars" id="stars"></div>
+      </div>
+
+      <div class="field">
+        <label class="small" data-i18n="comment_label">Comment</label>
+        <textarea id="reviewText" placeholder="Great work and very professional..."></textarea>
+      </div>
+
+      <div class="buttons" style="margin-top:12px;">
+        <button class="btn primary" id="submitReview" type="button"><span data-i18n="submit_review">Submit Review</span></button>
+        <button class="btn" id="clearReviews" type="button">Clear (this device)</button>
+      </div>
+
+      <div class="small" style="margin-top:10px;" data-i18n="rating_note">
+        Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="avg">
+        <div data-i18n="avg_title">Average</div>
+        <small id="avgValue">—</small>
+      </div>
+      <div id="reviewList"></div>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    📍 560 34th St SW Apt 301, Wyoming, MI 49509<br><br>
-    📞 (616) 381-0443<br>
-    ✉️ diazpropaintingllc24@gmail.com<br><br>
-    <a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=560+34th+St+SW+Wyoming+MI" target="_blank">Get Directions</a>
+<section id="contact" class="section">
+  <h2 data-i18n="contact_title">Contact</h2>
+
+  <div class="grid2">
+    <div class="card">
+      <strong>Díaz Pro Painting LLC</strong><br><br>
+      📍 560 34th St SW Apt 301<br>
+      Wyoming, MI 49509<br><br>
+
+      📞 (616) 381-0443<br>
+      ✉️ diazpropaintingllc24@gmail.com<br><br>
+
+      <a class="btn primary"
+         href="https://www.google.com/maps/search/?api=1&query=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509"
+         target="_blank" rel="noopener"
+         style="width:100%;">🗺️ <span data-i18n="directions_btn">Get Directions</span></a>
+
+      <a class="btn whatsapp"
+         href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate.%20%2F%20Hola%20D%C3%ADaz%20Pro%20Painting%20LLC!%20Quisiera%20un%20estimado%20gratis."
+         target="_blank" rel="noopener"
+         style="width:100%; margin-top:10px;">💬 <span data-i18n="whatsapp_btn">Chat on WhatsApp</span></a>
+
+      <a class="btn primary" href="#" id="openEstimateContact" style="width:100%; margin-top:10px;">🧾 <span data-i18n="nav_cta">Free Estimate</span></a>
+    </div>
+
+    <div class="card">
+      <iframe
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509&output=embed">
+      </iframe>
+    </div>
   </div>
 </section>
 
-<!-- FREE ESTIMATE MODAL -->
-<div class="modal" id="estimateModal">
-  <div class="modal-box">
-    <h2>Free Estimate</h2>
-    <p>This will open WhatsApp with your request.</p>
-    <button class="btn whatsapp" onclick="sendEstimate()">Send via WhatsApp</button>
-    <br><br>
-    <button class="btn" onclick="closeEstimate()">Close</button>
+<footer>
+  <div>© <span id="y"></span> Díaz Pro Painting LLC</div>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="#top">Back to top</a>
+    <a href="tel:+16163810443">Call</a>
+    <a href="https://wa.me/16163810443" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- Free Estimate Modal (simple + safe) -->
+<div id="estimateModal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop" id="estimateBackdrop"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="estTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title" id="estTitle" data-i18n="est_title">Free Estimate</div>
+        <button id="closeEstimate" class="btn" type="button" style="padding:10px 12px;">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="small" data-i18n="est_body">
+          Tap the button below to open WhatsApp and request your free estimate.
+        </p>
+        <button class="btn whatsapp" id="sendEstimate" type="button" style="width:100%; margin-top:10px;">
+          💬 <span data-i18n="est_send">Send on WhatsApp</span>
+        </button>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" id="closeEstimateBottom" type="button" data-i18n="close">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-/* Carousel */
-const imgs=["hero1.png?v=2","hero2.png?v=2","hero3.png?v=2"];
-let i=0;
-function setSlide(n){i=n;document.getElementById("slide").src=imgs[i];}
-setInterval(()=>{i=(i+1)%imgs.length;setSlide(i)},3000);
+  // Year
+  document.getElementById("y").textContent = new Date().getFullYear();
 
-/* Reviews */
-let rating=0;
-const stars=document.getElementById("stars");
-for(let i=1;i<=5;i++){
-  let s=document.createElement("span");
-  s.textContent="★";
-  s.className="star";
-  s.onclick=()=>{rating=i;updateStars()};
-  stars.appendChild(s);
-}
-function updateStars(){
-  [...stars.children].forEach((s,idx)=>s.classList.toggle("active",idx<rating));
-}
-function saveReview(){
-  if(!rating)return alert("Select stars");
-  let txt=document.getElementById("reviewText").value;
-  let div=document.createElement("div");
-  div.textContent="★".repeat(rating)+" - "+txt;
-  document.getElementById("reviewList").appendChild(div);
-  document.getElementById("reviewText").value="";
-  rating=0;updateStars();
-}
+  // ---------- i18n ----------
+  const TEXT = {
+    en: {
+      brand_sub:"Honest & Professional Service",
+      nav_services:"Services",
+      nav_reviews:"Reviews",
+      nav_contact:"Contact",
+      nav_cta:"Free Estimate",
+      hero_title:"Professional Painting Services",
+      hero_sub:"Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.",
+      call_btn:"Call",
+      email_btn:"Email",
+      pill_1:"Free estimates",
+      pill_2:"Clean & on-time",
+      pill_3:"Residential & commercial",
+      directions_inline:"Get directions",
+      follow_us:"Follow us",
+      services_title:"Services",
+      services_sub:"Quality prep, clean lines, and a durable finish for interiors and exteriors.",
+      svc1:"Interior Painting",
+      svc1_desc:"Walls, ceilings, trim, doors. Clean lines and smooth finish.",
+      svc2:"Exterior Painting",
+      svc2_desc:"Prep, scrape, sand, prime and weather-resistant coatings.",
+      svc3:"Repairs & Drywall",
+      svc3_desc:"Repairs, patches, texture blending and spot paint matching.",
+      reviews_title:"Reviews",
+      reviews_sub:"Customers can leave a rating and comment. Saved on this device (localStorage).",
+      rating_title:"Rate our service",
+      rating_label:"Your rating:",
+      name_label:"Name",
+      comment_label:"Comment",
+      submit_review:"Submit Review",
+      rating_note:"Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.",
+      avg_title:"Average",
+      contact_title:"Contact",
+      directions_btn:"Get Directions",
+      whatsapp_btn:"Chat on WhatsApp",
+      est_title:"Free Estimate",
+      est_body:"Tap the button below to open WhatsApp and request your free estimate.",
+      est_send:"Send on WhatsApp",
+      close:"Close"
+    },
+    es: {
+      brand_sub:"Servicio honesto y profesional",
+      nav_services:"Servicios",
+      nav_reviews:"Reseñas",
+      nav_contact:"Contacto",
+      nav_cta:"Estimado Gratis",
+      hero_title:"Servicios Profesionales de Pintura",
+      hero_sub:"Pintura residencial y comercial en Grand Rapids y Wyoming, MI. Trabajo limpio, puntual y un acabado que te va a encantar.",
+      call_btn:"Llamar",
+      email_btn:"Correo",
+      pill_1:"Estimados gratis",
+      pill_2:"Limpio y puntual",
+      pill_3:"Residencial y comercial",
+      directions_inline:"Cómo llegar",
+      follow_us:"Síguenos",
+      services_title:"Servicios",
+      services_sub:"Buena preparación, líneas limpias y un acabado duradero para interiores y exteriores.",
+      svc1:"Pintura Interior",
+      svc1_desc:"Paredes, techos, molduras, puertas. Líneas limpias y acabado suave.",
+      svc2:"Pintura Exterior",
+      svc2_desc:"Preparación, raspado, lijado, imprimación y recubrimientos resistentes al clima.",
+      svc3:"Reparaciones & Drywall",
+      svc3_desc:"Reparaciones, parches, textura y retoques de pintura.",
+      reviews_title:"Reseñas",
+      reviews_sub:"Clientes pueden dejar estrellas y comentario. Se guarda en este dispositivo (localStorage).",
+      rating_title:"Califica el servicio",
+      rating_label:"Tu calificación:",
+      name_label:"Nombre",
+      comment_label:"Comentario",
+      submit_review:"Enviar reseña",
+      rating_note:"Nota: Esto se guarda en este dispositivo. Luego podemos conectar Google Reviews para reseñas públicas.",
+      avg_title:"Promedio",
+      contact_title:"Contacto",
+      directions_btn:"Ver mapa",
+      whatsapp_btn:"Hablar por WhatsApp",
+      est_title:"Estimado Gratis",
+      est_body:"Toca el botón para abrir WhatsApp y pedir tu estimado gratis.",
+      est_send:"Enviar por WhatsApp",
+      close:"Cerrar"
+    }
+  };
 
-/* Estimate */
-const modal=document.getElementById("estimateModal");
-document.getElementById("openEstimate").onclick=()=>modal.classList.add("show");
-function closeEstimate(){modal.classList.remove("show")}
-function sendEstimate(){
-  window.open("https://wa.me/16163810443?text=Hello,%20I%20would%20like%20a%20free%20estimate.","_blank");
-  closeEstimate();
-}
+  let currentLang = localStorage.getItem("lang") || "en";
+  const langLabel = document.getElementById("langLabel");
+  const langBtn = document.getElementById("langBtn");
+  const langMenu = document.getElementById("langMenu");
+
+  function applyLang(lang){
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    langLabel.textContent = lang.toUpperCase();
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key = el.getAttribute("data-i18n");
+      if(TEXT[lang] && TEXT[lang][key]) el.textContent = TEXT[lang][key];
+    });
+  }
+  applyLang(currentLang);
+
+  langBtn.addEventListener("click", ()=>{
+    langMenu.style.display = (langMenu.style.display === "block") ? "none" : "block";
+  });
+  document.addEventListener("click", (e)=>{
+    if(!langMenu.contains(e.target) && !langBtn.contains(e.target)){
+      langMenu.style.display = "none";
+    }
+  });
+  langMenu.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click", (e)=>{
+      e.preventDefault();
+      applyLang(a.dataset.lang);
+      langMenu.style.display="none";
+    });
+  });
+
+  // ---------- Carousel (4 slides) ----------
+  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(document.querySelectorAll(".dot"));
+  let idx = 0;
+  let timer = null;
+
+  function showSlide(i){
+    idx = i;
+    slides.forEach((s,k)=> s.classList.toggle("active", k===idx));
+    dots.forEach((d,k)=> d.classList.toggle("active", k===idx));
+  }
+  function startAuto(){
+    clearInterval(timer);
+    timer = setInterval(()=> showSlide((idx+1) % slides.length), 3000);
+  }
+  dots.forEach(d=>{
+    d.addEventListener("click", ()=>{
+      showSlide(Number(d.dataset.index));
+      startAuto();
+    });
+  });
+  startAuto();
+
+  // ---------- Reviews ----------
+  const starWrap = document.getElementById("stars");
+  const submitReview = document.getElementById("submitReview");
+  const reviewName = document.getElementById("reviewName");
+  const reviewText = document.getElementById("reviewText");
+  const reviewList = document.getElementById("reviewList");
+  const avgValue = document.getElementById("avgValue");
+  const clearReviews = document.getElementById("clearReviews");
+  let selectedStars = 0;
+
+  function renderStarPicker(){
+    starWrap.innerHTML = "";
+    for(let i=1;i<=5;i++){
+      const s = document.createElement("div");
+      s.className = "star" + (i<=selectedStars ? " active" : "");
+      s.textContent = "★";
+      s.title = i + " / 5";
+      s.addEventListener("click", ()=>{
+        selectedStars = i;
+        renderStarPicker();
+      });
+      starWrap.appendChild(s);
+    }
+  }
+  function loadReviews(){ try{ return JSON.parse(localStorage.getItem("reviews")||"[]"); }catch(e){ return []; } }
+  function saveReviews(arr){ localStorage.setItem("reviews", JSON.stringify(arr)); }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+  function renderReviews(){
+    const arr = loadReviews();
+    reviewList.innerHTML = "";
+    if(arr.length === 0){
+      avgValue.textContent = "—";
+      return;
+    }
+    const avg = arr.reduce((a,r)=>a+r.stars,0)/arr.length;
+    avgValue.textContent = avg.toFixed(1) + " / 5";
+    arr.slice().reverse().forEach(r=>{
+      const item = document.createElement("div");
+      item.className = "review-item";
+      item.innerHTML = `
+        <div class="review-top">
+          <div class="review-name">${escapeHtml(r.name || "Anonymous")}</div>
+          <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>
+        </div>
+        <div class="review-text">${escapeHtml(r.text || "")}</div>
+      `;
+      reviewList.appendChild(item);
+    });
+  }
+  renderStarPicker();
+  renderReviews();
+
+  submitReview.addEventListener("click", ()=>{
+    const name = (reviewName.value||"").trim();
+    const text = (reviewText.value||"").trim();
+    if(!selectedStars){ alert("Select stars / Selecciona estrellas"); return; }
+    if(!text){ alert("Write a comment / Escribe un comentario"); return; }
+    const arr = loadReviews();
+    arr.push({name, text, stars:selectedStars, t:Date.now()});
+    saveReviews(arr);
+    reviewName.value = "";
+    reviewText.value = "";
+    selectedStars = 0;
+    renderStarPicker();
+    renderReviews();
+  });
+
+  clearReviews.addEventListener("click", ()=>{
+    localStorage.removeItem("reviews");
+    renderReviews();
+  });
+
+  // ---------- Free Estimate Modal ----------
+  const estModal = document.getElementById("estimateModal");
+  const estBackdrop = document.getElementById("estimateBackdrop");
+  const estClose = document.getElementById("closeEstimate");
+  const estCloseBottom = document.getElementById("closeEstimateBottom");
+  const openEstimateTop = document.getElementById("openEstimateTop");
+  const openEstimateBanner = document.getElementById("openEstimateBanner");
+  const openEstimateContact = document.getElementById("openEstimateContact");
+  const sendEstimate = document.getElementById("sendEstimate");
+
+  function openModal(){
+    estModal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    estModal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+
+  [openEstimateTop, openEstimateBanner, openEstimateContact].forEach(btn=>{
+    if(btn) btn.addEventListener("click", (e)=>{ e.preventDefault(); openModal(); });
+  });
+
+  [estBackdrop, estClose, estCloseBottom].forEach(el=>{
+    if(el) el.addEventListener("click", closeModal);
+  });
+
+  sendEstimate.addEventListener("click", ()=>{
+    window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
+      "Hello Díaz Pro Painting LLC! I would like a free estimate. / Hola Díaz Pro Painting LLC! Quisiera un estimado gratis."
+    ), "_blank", "noopener");
+    closeModal();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
+  });
 </script>
-
 </body>
 </html>
+
 
 
