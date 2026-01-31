@@ -560,7 +560,7 @@
 
 <section id="reviews" class="section">
   <h2 data-i18n="reviews_title">Reviews</h2>
-  <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Saved on this device (localStorage).</p>
+  <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Public reviews are shown here after approval.</p>
 
   <div class="review-wrap">
     <div class="card">
@@ -587,7 +587,7 @@
       </div>
 
       <div class="small" style="margin-top:10px;" data-i18n="rating_note">
-        Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.
+        Note: Reviews are submitted online and may require approval before they appear.
       </div>
     </div>
 
@@ -699,13 +699,13 @@
       svc3:"Repairs & Drywall",
       svc3_desc:"Repairs, patches, texture blending and spot paint matching.",
       reviews_title:"Reviews",
-      reviews_sub:"Customers can leave a rating and comment. Saved on this device (localStorage).",
+      reviews_sub:"Customers can leave a rating and comment. Public reviews are shown here after approval.",
       rating_title:"Rate our service",
       rating_label:"Your rating:",
       name_label:"Name",
       comment_label:"Comment",
       submit_review:"Submit Review",
-      rating_note:"Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.",
+      rating_note:"Note: Reviews are submitted online and may require approval before they appear.",
       avg_title:"Average",
       contact_title:"Contact",
       directions_btn:"Get Directions",
@@ -739,13 +739,13 @@
       svc3:"Reparaciones & Drywall",
       svc3_desc:"Reparaciones, parches, textura y retoques de pintura.",
       reviews_title:"Reseñas",
-      reviews_sub:"Clientes pueden dejar estrellas y comentario. Se guarda en este dispositivo (localStorage).",
+      reviews_sub:"Clientes pueden dejar estrellas y comentario. Las reseñas públicas aparecen aquí después de aprobación.",
       rating_title:"Califica el servicio",
       rating_label:"Tu calificación:",
       name_label:"Nombre",
       comment_label:"Comentario",
       submit_review:"Enviar reseña",
-      rating_note:"Nota: Esto se guarda en este dispositivo. Luego podemos conectar Google Reviews para reseñas públicas.",
+      rating_note:"Nota: Las reseñas se envían online y pueden requerir aprobación antes de publicarse.",
       avg_title:"Promedio",
       contact_title:"Contacto",
       directions_btn:"Ver mapa",
@@ -820,6 +820,13 @@
   const reviewList = document.getElementById("reviewList");
   const avgValue = document.getElementById("avgValue");
   const clearReviews = document.getElementById("clearReviews");
+
+  // ---------- Public Reviews (Supabase) ----------
+  // GitHub Pages is static, so we store reviews in Supabase so everyone can see them.
+  const SUPABASE_URL = "https://vdmziwjjlejpjqjmtift.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_GwgON26mgy-47QJAu6qh0w_AsF3CEfo";
+  const REVIEWS_ENDPOINT = `${SUPABASE_URL}/rest/v1/reviews`;
+
   let selectedStars = 0;
 
   function renderStarPicker(){
@@ -836,59 +843,119 @@
       starWrap.appendChild(s);
     }
   }
-  function loadReviews(){ try{ return JSON.parse(localStorage.getItem("reviews")||"[]"); }catch(e){ return []; } }
-  function saveReviews(arr){ localStorage.setItem("reviews", JSON.stringify(arr)); }
+
   function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, m => ({
+    return String(str).replace(/[&<>"\']/g, m => ({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
     }[m]));
   }
-  function renderReviews(){
-    const arr = loadReviews();
-    reviewList.innerHTML = "";
-    if(arr.length === 0){
-      avgValue.textContent = "—";
-      return;
+
+  async function fetchReviews(){
+    const url = `${REVIEWS_ENDPOINT}?select=id,name,rating,comment,created_at&approved=eq.true&order=created_at.desc`;
+    const res = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    if(!res.ok){
+      console.error("Error loading reviews:", await res.text());
+      return [];
     }
-    const avg = arr.reduce((a,r)=>a+r.stars,0)/arr.length;
+    return await res.json();
+  }
+
+  async function submitReviewToSupabase({name, rating, comment}){
+    const res = await fetch(REVIEWS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify([{ name, rating, comment }])
+    });
+
+    if(!res.ok){
+      const t = await res.text();
+      throw new Error(t);
+    }
+  }
+
+  async function renderReviews(){
+    reviewList.innerHTML = "";
+    avgValue.textContent = "—";
+
+    const arr = await fetchReviews();
+    if(arr.length === 0) return;
+
+    const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0)/arr.length;
     avgValue.textContent = avg.toFixed(1) + " / 5";
-    arr.slice().reverse().forEach(r=>{
+
+    arr.forEach(r=>{
       const item = document.createElement("div");
       item.className = "review-item";
+      const stars = Math.max(0, Math.min(5, Number(r.rating)||0));
       item.innerHTML = `
         <div class="review-top">
           <div class="review-name">${escapeHtml(r.name || "Anonymous")}</div>
-          <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>
+          <div class="review-stars">${"★".repeat(stars)}${"☆".repeat(5-stars)}</div>
         </div>
-        <div class="review-text">${escapeHtml(r.text || "")}</div>
+        <div class="review-text">${escapeHtml(r.comment || "")}</div>
       `;
       reviewList.appendChild(item);
     });
   }
+
   renderStarPicker();
   renderReviews();
 
-  submitReview.addEventListener("click", ()=>{
-    const name = (reviewName.value||"").trim();
-    const text = (reviewText.value||"").trim();
+  submitReview.addEventListener("click", async ()=>{
+    const name = (reviewName.value||"").trim() || "Anonymous";
+    const comment = (reviewText.value||"").trim();
+
     if(!selectedStars){ alert("Select stars / Selecciona estrellas"); return; }
-    if(!text){ alert("Write a comment / Escribe un comentario"); return; }
-    const arr = loadReviews();
-    arr.push({name, text, stars:selectedStars, t:Date.now()});
-    saveReviews(arr);
+    if(!comment){ alert("Write a comment / Escribe un comentario"); return; }
+
+    // Basic anti-spam guard (client-side only)
+    if(comment.length > 800){ alert("Comment too long / Comentario muy largo"); return; }
+    if(name.length > 60){ alert("Name too long / Nombre muy largo"); return; }
+
+    const oldText = submitReview.textContent;
+    submitReview.disabled = true;
+    submitReview.textContent = "Sending...";
+
+    try{
+      await submitReviewToSupabase({ name, rating: selectedStars, comment });
+      alert("Thanks! Your review was submitted and may require approval before it appears. / ¡Gracias! Tu reseña se envió y puede requerir aprobación antes de publicarse.");
+
+      // Reset form
+      reviewName.value = "";
+      reviewText.value = "";
+      selectedStars = 0;
+      renderStarPicker();
+
+      // Refresh list (will only show approved ones)
+      await renderReviews();
+    }catch(err){
+      console.error(err);
+      alert("Could not submit review. Please try again. / No se pudo enviar la reseña. Intenta de nuevo.");
+    }finally{
+      submitReview.disabled = false;
+      submitReview.textContent = oldText;
+    }
+  });
+
+  // Keep the "Clear" button safe: only clears this form on this device (does NOT delete public reviews).
+  clearReviews.addEventListener("click", ()=>{
     reviewName.value = "";
     reviewText.value = "";
     selectedStars = 0;
     renderStarPicker();
-    renderReviews();
   });
 
-  clearReviews.addEventListener("click", ()=>{
-    localStorage.removeItem("reviews");
-    renderReviews();
-  });
-
-  // ---------- Free Estimate Modal ----------
+// ---------- Free Estimate Modal ----------
   const estModal = document.getElementById("estimateModal");
   const estBackdrop = document.getElementById("estimateBackdrop");
   const estClose = document.getElementById("closeEstimate");
@@ -916,6 +983,19 @@
   });
 
   sendEstimate.addEventListener("click", ()=>{
+    window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
+      "Hello Díaz Pro Painting LLC! I would like a free estimate. / Hola Díaz Pro Painting LLC! Quisiera un estimado gratis."
+    ), "_blank", "noopener");
+    closeModal();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
+  });
+</script>
+</body>
+</html>
+
     window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
       "Hello Díaz Pro Painting LLC! I would like a free estimate. / Hola Díaz Pro Painting LLC! Quisiera un estimado gratis."
     ), "_blank", "noopener");
