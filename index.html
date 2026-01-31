@@ -350,7 +350,26 @@
     .review-name{ font-weight:950; }
     .review-stars{ color:#ffd166; letter-spacing:1px; }
     .review-text{ margin-top:8px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
-    .avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
+    
+    /* Reviews carousel (shows 3 on desktop, 1 on mobile) */
+    .reviews-carousel{ position:relative; }
+    .reviews-viewport{ overflow:hidden; border-radius:16px; }
+    .reviews-track{
+      display:flex;
+      gap:12px;
+      transition: transform .35s ease;
+      will-change: transform;
+    }
+    .reviews-track .review-item{
+      flex:0 0 calc((100% - 24px) / 3);
+      margin-top:0; /* override vertical list spacing */
+    }
+    @media (max-width: 900px){
+      .reviews-track .review-item{ flex:0 0 100%; }
+    }
+    #revPrev:disabled, #revNext:disabled{ opacity:.35; cursor:not-allowed; }
+
+.avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
     .avg small{ color:var(--muted2); font-weight:900; }
 
     /* Map */
@@ -560,7 +579,7 @@
 
 <section id="reviews" class="section">
   <h2 data-i18n="reviews_title">Reviews</h2>
-  <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Public reviews are shown here after approval.</p>
+  <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Reviews appear here for everyone.</p>
 
   <div class="review-wrap">
     <div class="card">
@@ -583,11 +602,11 @@
 
       <div class="buttons" style="margin-top:12px;">
         <button class="btn primary" id="submitReview" type="button"><span data-i18n="submit_review">Submit Review</span></button>
-        <button class="btn" id="clearReviews" type="button">Clear (this device)</button>
+        <button class="btn" id="clearReviews" type="button">Clear</button>
       </div>
 
       <div class="small" style="margin-top:10px;" data-i18n="rating_note">
-        Note: Reviews are submitted online and may require approval before they appear.
+        Note: Reviews are public. If needed, we can hide any review later.
       </div>
     </div>
 
@@ -596,7 +615,16 @@
         <div data-i18n="avg_title">Average</div>
         <small id="avgValue">—</small>
       </div>
-      <div id="reviewList"></div>
+
+      <div class="reviews-carousel">
+        <button class="car-btn prev" id="revPrev" type="button" aria-label="Previous reviews">‹</button>
+
+        <div class="reviews-viewport" id="reviewsViewport">
+          <div class="reviews-track" id="reviewList"></div>
+        </div>
+
+        <button class="car-btn next" id="revNext" type="button" aria-label="Next reviews">›</button>
+      </div>
     </div>
   </div>
 </section>
@@ -699,13 +727,13 @@
       svc3:"Repairs & Drywall",
       svc3_desc:"Repairs, patches, texture blending and spot paint matching.",
       reviews_title:"Reviews",
-      reviews_sub:"Customers can leave a rating and comment. Public reviews are shown here after approval.",
+      reviews_sub:"Customers can leave a rating and comment. Reviews appear here for everyone.",
       rating_title:"Rate our service",
       rating_label:"Your rating:",
       name_label:"Name",
       comment_label:"Comment",
       submit_review:"Submit Review",
-      rating_note:"Note: Reviews are submitted online and may require approval before they appear.",
+      rating_note:"Note: Reviews are public. If needed, we can hide any review later.",
       avg_title:"Average",
       contact_title:"Contact",
       directions_btn:"Get Directions",
@@ -739,13 +767,13 @@
       svc3:"Reparaciones & Drywall",
       svc3_desc:"Reparaciones, parches, textura y retoques de pintura.",
       reviews_title:"Reseñas",
-      reviews_sub:"Clientes pueden dejar estrellas y comentario. Las reseñas públicas aparecen aquí después de aprobación.",
+      reviews_sub:"Clientes pueden dejar estrellas y comentario. Las reseñas aparecen aquí para todos.",
       rating_title:"Califica el servicio",
       rating_label:"Tu calificación:",
       name_label:"Nombre",
       comment_label:"Comentario",
       submit_review:"Enviar reseña",
-      rating_note:"Nota: Las reseñas se envían online y pueden requerir aprobación antes de publicarse.",
+      rating_note:"Nota: Esto se guarda en este dispositivo. Luego podemos conectar Google Reviews para reseñas públicas.",
       avg_title:"Promedio",
       contact_title:"Contacto",
       directions_btn:"Ver mapa",
@@ -821,13 +849,25 @@
   const avgValue = document.getElementById("avgValue");
   const clearReviews = document.getElementById("clearReviews");
 
-  // ---------- Public Reviews (Supabase) ----------
-  // GitHub Pages is static, so we store reviews in Supabase so everyone can see them.
+  // Carousel controls
+  const revPrev = document.getElementById("revPrev");
+  const revNext = document.getElementById("revNext");
+  const reviewsViewport = document.getElementById("reviewsViewport");
+  let revIndex = 0;
+  let revPageSize = 3;
+
+  // Supabase (public reviews)
   const SUPABASE_URL = "https://vdmziwjjlejpjqjmtift.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_GwgON26mgy-47QJAu6qh0w_AsF3CEfo";
   const REVIEWS_ENDPOINT = `${SUPABASE_URL}/rest/v1/reviews`;
 
   let selectedStars = 0;
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
 
   function renderStarPicker(){
     starWrap.innerHTML = "";
@@ -842,12 +882,6 @@
       });
       starWrap.appendChild(s);
     }
-  }
-
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"\']/g, m => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[m]));
   }
 
   async function fetchReviews(){
@@ -883,12 +917,35 @@
     }
   }
 
+  function updateRevPageSize(){
+    revPageSize = window.matchMedia("(max-width: 900px)").matches ? 1 : 3;
+  }
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function updateReviewsCarousel(total){
+    if(!reviewsViewport) return;
+
+    updateRevPageSize();
+    const pages = Math.max(1, Math.ceil(total / revPageSize));
+    revIndex = clamp(revIndex, 0, pages - 1);
+
+    const w = reviewsViewport.clientWidth;
+    reviewList.style.transform = `translateX(-${revIndex * w}px)`;
+
+    if(revPrev) revPrev.disabled = (revIndex === 0);
+    if(revNext) revNext.disabled = (revIndex === pages - 1);
+  }
+
   async function renderReviews(){
     reviewList.innerHTML = "";
     avgValue.textContent = "—";
+    revIndex = 0;
 
     const arr = await fetchReviews();
-    if(arr.length === 0) return;
+    if(arr.length === 0){
+      updateReviewsCarousel(0);
+      return;
+    }
 
     const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0)/arr.length;
     avgValue.textContent = avg.toFixed(1) + " / 5";
@@ -906,6 +963,27 @@
       `;
       reviewList.appendChild(item);
     });
+
+    updateReviewsCarousel(arr.length);
+  }
+
+  function handleResize(){
+    const items = document.querySelectorAll("#reviewList .review-item").length;
+    updateReviewsCarousel(items);
+  }
+
+  if(revPrev && revNext){
+    revPrev.addEventListener("click", ()=>{
+      revIndex--;
+      const items = document.querySelectorAll("#reviewList .review-item").length;
+      updateReviewsCarousel(items);
+    });
+    revNext.addEventListener("click", ()=>{
+      revIndex++;
+      const items = document.querySelectorAll("#reviewList .review-item").length;
+      updateReviewsCarousel(items);
+    });
+    window.addEventListener("resize", handleResize);
   }
 
   renderStarPicker();
@@ -918,36 +996,33 @@
     if(!selectedStars){ alert("Select stars / Selecciona estrellas"); return; }
     if(!comment){ alert("Write a comment / Escribe un comentario"); return; }
 
-    // Basic anti-spam guard (client-side only)
     if(comment.length > 800){ alert("Comment too long / Comentario muy largo"); return; }
     if(name.length > 60){ alert("Name too long / Nombre muy largo"); return; }
 
-    const oldText = submitReview.textContent;
+    const oldHTML = submitReview.innerHTML;
     submitReview.disabled = true;
-    submitReview.textContent = "Sending...";
+    submitReview.innerHTML = "Sending...";
 
     try{
       await submitReviewToSupabase({ name, rating: selectedStars, comment });
-      alert("Thanks! Your review was submitted and may require approval before it appears. / ¡Gracias! Tu reseña se envió y puede requerir aprobación antes de publicarse.");
+      alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
 
-      // Reset form
       reviewName.value = "";
       reviewText.value = "";
       selectedStars = 0;
       renderStarPicker();
 
-      // Refresh list (will only show approved ones)
       await renderReviews();
     }catch(err){
       console.error(err);
-      alert("Could not submit review. Please try again. / No se pudo enviar la reseña. Intenta de nuevo.");
+      alert("Could not submit review. / No se pudo enviar la reseña.");
     }finally{
       submitReview.disabled = false;
-      submitReview.textContent = oldText;
+      submitReview.innerHTML = oldHTML;
     }
   });
 
-  // Keep the "Clear" button safe: only clears this form on this device (does NOT delete public reviews).
+  // Clear: only clears the form on this device (does not delete public reviews)
   clearReviews.addEventListener("click", ()=>{
     reviewName.value = "";
     reviewText.value = "";
@@ -955,7 +1030,8 @@
     renderStarPicker();
   });
 
-// ---------- Free Estimate Modal ----------
+
+  // ---------- Free Estimate Modal ----------
   const estModal = document.getElementById("estimateModal");
   const estBackdrop = document.getElementById("estimateBackdrop");
   const estClose = document.getElementById("closeEstimate");
@@ -983,19 +1059,6 @@
   });
 
   sendEstimate.addEventListener("click", ()=>{
-    window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
-      "Hello Díaz Pro Painting LLC! I would like a free estimate. / Hola Díaz Pro Painting LLC! Quisiera un estimado gratis."
-    ), "_blank", "noopener");
-    closeModal();
-  });
-
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
-  });
-</script>
-</body>
-</html>
-
     window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
       "Hello Díaz Pro Painting LLC! I would like a free estimate. / Hola Díaz Pro Painting LLC! Quisiera un estimado gratis."
     ), "_blank", "noopener");
