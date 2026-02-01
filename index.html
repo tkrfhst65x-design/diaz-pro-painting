@@ -351,25 +351,54 @@
     .review-stars{ color:#ffd166; letter-spacing:1px; }
     .review-text{ margin-top:8px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
     
-    /* Reviews carousel (shows 3 on desktop, 1 on mobile) */
-    .reviews-carousel{ position:relative; }
-    .reviews-viewport{ overflow:hidden; border-radius:16px; }
+    /* Reviews carousel (left form + right carousel) */
+    .reviews-right{ display:flex; flex-direction:column; gap:10px; }
+    .reviews-carousel{ position:relative; margin-top:10px; }
+    .reviews-viewport{
+      overflow:hidden;
+      border-radius:16px;
+      min-height:150px;
+      display:flex;
+      align-items:stretch;
+    }
     .reviews-track{
       display:flex;
       gap:12px;
       transition: transform .35s ease;
       will-change: transform;
+      width:100%;
     }
     .reviews-track .review-item{
       flex:0 0 calc((100% - 24px) / 3);
       margin-top:0; /* override vertical list spacing */
     }
     @media (max-width: 900px){
+      .reviews-viewport{ min-height:190px; }
       .reviews-track .review-item{ flex:0 0 100%; }
     }
-    #revPrev:disabled, #revNext:disabled{ opacity:.35; cursor:not-allowed; }
+    .rev-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:36px;
+      height:36px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.25);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .rev-btn.prev{ left:8px; }
+    .rev-btn.next{ right:8px; }
+    .rev-btn:hover{ background:rgba(0,0,0,.35); }
+    .rev-btn:disabled{ opacity:.35; cursor:not-allowed; }
+    .reviews-mini{ font-size:12px; color:rgba(255,255,255,.55); }
 
-.avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
+    .avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
     .avg small{ color:var(--muted2); font-weight:900; }
 
     /* Map */
@@ -610,21 +639,23 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card reviews-right">
       <div class="avg">
         <div data-i18n="avg_title">Average</div>
         <small id="avgValue">—</small>
       </div>
 
       <div class="reviews-carousel">
-        <button class="car-btn prev" id="revPrev" type="button" aria-label="Previous reviews">‹</button>
+        <button class="rev-btn prev" id="revPrev" type="button" aria-label="Previous reviews">‹</button>
 
         <div class="reviews-viewport" id="reviewsViewport">
           <div class="reviews-track" id="reviewList"></div>
         </div>
 
-        <button class="car-btn next" id="revNext" type="button" aria-label="Next reviews">›</button>
+        <button class="rev-btn next" id="revNext" type="button" aria-label="Next reviews">›</button>
       </div>
+
+      <div class="reviews-mini" id="reviewsCounter"></div>
     </div>
   </div>
 </section>
@@ -808,39 +839,7 @@
     if(!langMenu.contains(e.target) && !langBtn.contains(e.target)){
       langMenu.style.display = "none";
     }
-  });
-  langMenu.querySelectorAll("a").forEach(a=>{
-    a.addEventListener("click", (e)=>{
-      e.preventDefault();
-      applyLang(a.dataset.lang);
-      langMenu.style.display="none";
-    });
-  });
-
-  // ---------- Carousel (4 slides) ----------
-  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
-  const dots = Array.from(document.querySelectorAll(".dot"));
-  let idx = 0;
-  let timer = null;
-
-  function showSlide(i){
-    idx = i;
-    slides.forEach((s,k)=> s.classList.toggle("active", k===idx));
-    dots.forEach((d,k)=> d.classList.toggle("active", k===idx));
-  }
-  function startAuto(){
-    clearInterval(timer);
-    timer = setInterval(()=> showSlide((idx+1) % slides.length), 3000);
-  }
-  dots.forEach(d=>{
-    d.addEventListener("click", ()=>{
-      showSlide(Number(d.dataset.index));
-      startAuto();
-    });
-  });
-  startAuto();
-
-  // ---------- Reviews ----------
+  }// ---------- Reviews ----------
   const starWrap = document.getElementById("stars");
   const submitReview = document.getElementById("submitReview");
   const reviewName = document.getElementById("reviewName");
@@ -849,12 +848,9 @@
   const avgValue = document.getElementById("avgValue");
   const clearReviews = document.getElementById("clearReviews");
 
-  // Carousel controls
   const revPrev = document.getElementById("revPrev");
   const revNext = document.getElementById("revNext");
-  const reviewsViewport = document.getElementById("reviewsViewport");
-  let revIndex = 0;
-  let revPageSize = 3;
+  const reviewsCounter = document.getElementById("reviewsCounter");
 
   // Supabase (public reviews)
   const SUPABASE_URL = "https://vdmziwjjlejpjqjmtift.supabase.co";
@@ -862,6 +858,9 @@
   const REVIEWS_ENDPOINT = `${SUPABASE_URL}/rest/v1/reviews`;
 
   let selectedStars = 0;
+  let revIndex = 0;
+  let revPageSize = 3;
+  let totalReviewsLoaded = 0;
 
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, m => ({
@@ -885,7 +884,8 @@
   }
 
   async function fetchReviews(){
-    const url = `${REVIEWS_ENDPOINT}?select=id,name,rating,comment,created_at&approved=eq.true&order=created_at.desc`;
+    // Load only the latest 12 reviews to keep the page fast (3 per page = 4 pages)
+    const url = `${REVIEWS_ENDPOINT}?select=id,name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=12`;
     const res = await fetch(url, {
       headers: {
         apikey: SUPABASE_ANON_KEY,
@@ -922,18 +922,27 @@
   }
   function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-  function updateReviewsCarousel(total){
-    if(!reviewsViewport) return;
-
+  function updateReviewsCarousel(){
     updateRevPageSize();
-    const pages = Math.max(1, Math.ceil(total / revPageSize));
+
+    const pages = Math.max(1, Math.ceil(totalReviewsLoaded / revPageSize));
     revIndex = clamp(revIndex, 0, pages - 1);
 
-    const w = reviewsViewport.clientWidth;
+    const viewport = document.getElementById("reviewsViewport");
+    const w = viewport ? viewport.clientWidth : 0;
+
     reviewList.style.transform = `translateX(-${revIndex * w}px)`;
 
     if(revPrev) revPrev.disabled = (revIndex === 0);
     if(revNext) revNext.disabled = (revIndex === pages - 1);
+
+    if(reviewsCounter){
+      const start = totalReviewsLoaded ? (revIndex * revPageSize + 1) : 0;
+      const end = totalReviewsLoaded ? Math.min((revIndex + 1) * revPageSize, totalReviewsLoaded) : 0;
+      reviewsCounter.textContent = totalReviewsLoaded
+        ? `Showing ${start}–${end} of ${totalReviewsLoaded}`
+        : "";
+    }
   }
 
   async function renderReviews(){
@@ -942,8 +951,10 @@
     revIndex = 0;
 
     const arr = await fetchReviews();
+    totalReviewsLoaded = arr.length;
+
     if(arr.length === 0){
-      updateReviewsCarousel(0);
+      requestAnimationFrame(updateReviewsCarousel);
       return;
     }
 
@@ -964,26 +975,14 @@
       reviewList.appendChild(item);
     });
 
-    updateReviewsCarousel(arr.length);
-  }
-
-  function handleResize(){
-    const items = document.querySelectorAll("#reviewList .review-item").length;
-    updateReviewsCarousel(items);
+    // Wait for layout so we can measure width correctly (avoids empty space)
+    requestAnimationFrame(updateReviewsCarousel);
   }
 
   if(revPrev && revNext){
-    revPrev.addEventListener("click", ()=>{
-      revIndex--;
-      const items = document.querySelectorAll("#reviewList .review-item").length;
-      updateReviewsCarousel(items);
-    });
-    revNext.addEventListener("click", ()=>{
-      revIndex++;
-      const items = document.querySelectorAll("#reviewList .review-item").length;
-      updateReviewsCarousel(items);
-    });
-    window.addEventListener("resize", handleResize);
+    revPrev.addEventListener("click", ()=>{ revIndex--; updateReviewsCarousel(); });
+    revNext.addEventListener("click", ()=>{ revIndex++; updateReviewsCarousel(); });
+    window.addEventListener("resize", ()=>requestAnimationFrame(updateReviewsCarousel));
   }
 
   renderStarPicker();
@@ -999,7 +998,37 @@
     if(comment.length > 800){ alert("Comment too long / Comentario muy largo"); return; }
     if(name.length > 60){ alert("Name too long / Nombre muy largo"); return; }
 
-    const oldHTML = submitReview.innerHTML;
+    const oldText = submitReview.textContent;
+    submitReview.disabled = true;
+    submitReview.textContent = "Sending...";
+
+    try{
+      await submitReviewToSupabase({ name, rating: selectedStars, comment });
+      alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
+
+      reviewName.value = "";
+      reviewText.value = "";
+      selectedStars = 0;
+      renderStarPicker();
+
+      await renderReviews();
+    }catch(err){
+      console.error(err);
+      alert("Could not submit review. / No se pudo enviar la reseña.");
+    }finally{
+      submitReview.disabled = false;
+      submitReview.textContent = oldText;
+    }
+  });
+
+  clearReviews.addEventListener("click", ()=>{
+    reviewName.value = "";
+    reviewText.value = "";
+    selectedStars = 0;
+    renderStarPicker();
+  });
+
+submitReview.innerHTML;
     submitReview.disabled = true;
     submitReview.innerHTML = "Sending...";
 
