@@ -350,54 +350,6 @@
     .review-name{ font-weight:950; }
     .review-stars{ color:#ffd166; letter-spacing:1px; }
     .review-text{ margin-top:8px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
-    
-    /* Reviews carousel (left form + right carousel) */
-    .reviews-right{ display:flex; flex-direction:column; gap:10px; }
-    .reviews-carousel{ position:relative; margin-top:10px; }
-    .reviews-viewport{
-      overflow:hidden;
-      border-radius:16px;
-      min-height:150px;
-      display:flex;
-      align-items:stretch;
-    }
-    .reviews-track{
-      display:flex;
-      gap:12px;
-      transition: transform .35s ease;
-      will-change: transform;
-      width:100%;
-    }
-    .reviews-track .review-item{
-      flex:0 0 calc((100% - 24px) / 3);
-      margin-top:0; /* override vertical list spacing */
-    }
-    @media (max-width: 900px){
-      .reviews-viewport{ min-height:190px; }
-      .reviews-track .review-item{ flex:0 0 100%; }
-    }
-    .rev-btn{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:36px;
-      height:36px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.25);
-      color:#fff;
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .rev-btn.prev{ left:8px; }
-    .rev-btn.next{ right:8px; }
-    .rev-btn:hover{ background:rgba(0,0,0,.35); }
-    .rev-btn:disabled{ opacity:.35; cursor:not-allowed; }
-    .reviews-mini{ font-size:12px; color:rgba(255,255,255,.55); }
-
     .avg{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:950; }
     .avg small{ color:var(--muted2); font-weight:900; }
 
@@ -475,35 +427,128 @@
       .review-wrap{ grid-template-columns: 1fr; }
       .navlinks{ justify-content:flex-start; }
     }
-  
-
-/* ===== Final Reviews Layout (injected) ===== */
-
-.reviews-comments{
-  position: relative;
-  padding: 20px 56px;
+  /* ===== Reviews (Supabase) - vertical layout + carousel ===== */
+#reviews .review-wrap.reviews-vertical{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
 
-.reviews-comments .reviews-carousel{
-  padding: 0;
+/* Make the form not excessively wide */
+#reviews .card.form-card{
+  max-width:760px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.reviews-comments .review-item{
-  flex: 0 0 calc((100% - 24px) / 3);
+#reviews #reviewName,
+#reviews #reviewText{
+  max-width:560px;
+  width:100%;
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
 }
 
-.reviews-comments .rev-btn{
-  top: 50%;
-  transform: translateY(-50%);
+#reviews #reviewText{
+  min-height:90px;
+  max-height:160px;
+  resize:vertical;
 }
 
+/* Align star row with inputs */
+#reviews .stars{
+  max-width:560px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Buttons align with inputs */
+#reviews .form-card .btn{
+  max-width:560px;
+}
+
+/* Average card full width but not too tall */
+#reviews .avg-card{
+  padding:16px 20px;
+}
+
+/* Carousel */
+#reviews .comments-card{
+  padding:18px 20px;
+}
+
+#reviews .reviews-carousel{
+  position:relative;
+  padding:0 54px; /* room for arrows */
+}
+
+#reviews .reviews-viewport{
+  overflow:hidden;
+  border-radius:16px;
+}
+
+#reviews .reviews-track{
+  display:flex;
+  gap:12px;
+  transition:transform .35s ease;
+  will-change:transform;
+}
+
+/* 3 visible in desktop */
+#reviews .reviews-track .review-item{
+  flex:0 0 calc((100% - 24px)/3);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  padding:12px;
+}
+
+#reviews .review-top{
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+}
+
+#reviews .review-stars{ color:#ffd166; }
+#reviews .review-text{
+  margin-top:8px;
+  color:rgba(255,255,255,.80);
+  line-height:1.45;
+}
+
+#reviews .rev-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+  z-index:5;
+}
+#reviews .rev-btn.prev{ left:10px; }
+#reviews .rev-btn.next{ right:10px; }
+#reviews .rev-btn:disabled{ opacity:.35; cursor:not-allowed; }
+
+#reviews .reviews-mini{
+  margin-top:10px;
+  font-size:12px;
+  color:rgba(255,255,255,.55);
+}
+
+/* Mobile: 1 visible */
 @media (max-width: 900px){
-  .reviews-comments{
-    padding: 20px 44px;
+  #reviews .reviews-carousel{ padding:0 44px; }
+  #reviews #reviewName,
+  #reviews #reviewText,
+  #reviews .stars{
+    max-width:100%;
   }
-  .reviews-comments .review-item{
-    flex: 0 0 100%;
-  }
+  #reviews .reviews-track .review-item{ flex:0 0 100%; }
 }
 </style>
 </head>
@@ -640,8 +685,10 @@
   <h2 data-i18n="reviews_title">Reviews</h2>
   <p class="sub" data-i18n="reviews_sub">Customers can leave a rating and comment. Reviews appear here for everyone.</p>
 
-  <div class="review-wrap">
-    <div class="card">
+  <div class="review-wrap reviews-vertical">
+
+    <!-- FORM -->
+    <div class="card form-card">
       <strong data-i18n="rating_title">Rate our service</strong>
 
       <div class="field">
@@ -661,7 +708,7 @@
 
       <div class="buttons" style="margin-top:12px;">
         <button class="btn primary" id="submitReview" type="button"><span data-i18n="submit_review">Submit Review</span></button>
-        <button class="btn" id="clearReviews" type="button">Clear</button>
+        <button class="btn" id="clearReviews" type="button"><span data-i18n="clear_btn">Clear</span></button>
       </div>
 
       <div class="small" style="margin-top:10px;" data-i18n="rating_note">
@@ -669,12 +716,16 @@
       </div>
     </div>
 
-    <div class="card reviews-right">
+    <!-- AVERAGE -->
+    <div class="card avg-card">
       <div class="avg">
         <div data-i18n="avg_title">Average</div>
         <small id="avgValue">—</small>
       </div>
+    </div>
 
+    <!-- COMMENTS -->
+    <div class="card comments-card">
       <div class="reviews-carousel">
         <button class="rev-btn prev" id="revPrev" type="button" aria-label="Previous reviews">‹</button>
 
@@ -687,6 +738,7 @@
 
       <div class="reviews-mini" id="reviewsCounter"></div>
     </div>
+
   </div>
 </section>
 
@@ -759,7 +811,7 @@
 </div>
 
 <script>
-  // Year
+// Year
   document.getElementById("y").textContent = new Date().getFullYear();
 
   // ---------- i18n ----------
@@ -788,13 +840,13 @@
       svc3:"Repairs & Drywall",
       svc3_desc:"Repairs, patches, texture blending and spot paint matching.",
       reviews_title:"Reviews",
-      reviews_sub:"Customers can leave a rating and comment. Reviews appear here for everyone.",
+      reviews_sub:"Customers can leave a rating and comment. Saved on this device (localStorage).",
       rating_title:"Rate our service",
       rating_label:"Your rating:",
       name_label:"Name",
       comment_label:"Comment",
       submit_review:"Submit Review",
-      rating_note:"Note: Reviews are public. If needed, we can hide any review later.",
+      rating_note:"Note: This saves on the customer’s device. For public reviews, we can connect Google Reviews later.",
       avg_title:"Average",
       contact_title:"Contact",
       directions_btn:"Get Directions",
@@ -828,7 +880,7 @@
       svc3:"Reparaciones & Drywall",
       svc3_desc:"Reparaciones, parches, textura y retoques de pintura.",
       reviews_title:"Reseñas",
-      reviews_sub:"Clientes pueden dejar estrellas y comentario. Las reseñas aparecen aquí para todos.",
+      reviews_sub:"Clientes pueden dejar estrellas y comentario. Se guarda en este dispositivo (localStorage).",
       rating_title:"Califica el servicio",
       rating_label:"Tu calificación:",
       name_label:"Nombre",
@@ -869,9 +921,39 @@
     if(!langMenu.contains(e.target) && !langBtn.contains(e.target)){
       langMenu.style.display = "none";
     }
-});
- 
-// ---------- Reviews ----------
+  });
+  langMenu.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click", (e)=>{
+      e.preventDefault();
+      applyLang(a.dataset.lang);
+      langMenu.style.display="none";
+    });
+  });
+
+  // ---------- Carousel (4 slides) ----------
+  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(document.querySelectorAll(".dot"));
+  let idx = 0;
+  let timer = null;
+
+  function showSlide(i){
+    idx = i;
+    slides.forEach((s,k)=> s.classList.toggle("active", k===idx));
+    dots.forEach((d,k)=> d.classList.toggle("active", k===idx));
+  }
+  function startAuto(){
+    clearInterval(timer);
+    timer = setInterval(()=> showSlide((idx+1) % slides.length), 3000);
+  }
+  dots.forEach(d=>{
+    d.addEventListener("click", ()=>{
+      showSlide(Number(d.dataset.index));
+      startAuto();
+    });
+  });
+  startAuto();
+
+  // ---------- Reviews (Supabase) ----------
   const starWrap = document.getElementById("stars");
   const submitReview = document.getElementById("submitReview");
   const reviewName = document.getElementById("reviewName");
@@ -884,15 +966,14 @@
   const revNext = document.getElementById("revNext");
   const reviewsCounter = document.getElementById("reviewsCounter");
 
-  // Supabase (public reviews)
   const SUPABASE_URL = "https://vdmziwjjlejpjqjmtift.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_GwgON26mgy-47QJAu6qh0w_AsF3CEfo";
   const REVIEWS_ENDPOINT = `${SUPABASE_URL}/rest/v1/reviews`;
 
   let selectedStars = 0;
   let revIndex = 0;
-  let revPageSize = 3;
-  let totalReviewsLoaded = 0;
+  let pageSize = 3;
+  let totalLoaded = 0;
 
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, m => ({
@@ -901,8 +982,9 @@
   }
 
   function renderStarPicker(){
+    if(!starWrap) return;
     starWrap.innerHTML = "";
-    for(let i=1;i<=5;i++){
+    for(let i=1;i<=5;i++) {
       const s = document.createElement("div");
       s.className = "star" + (i<=selectedStars ? " active" : "");
       s.textContent = "★";
@@ -915,179 +997,145 @@
     }
   }
 
-  async function fetchReviews(){
-    // Load only the latest 12 reviews to keep the page fast (3 per page = 4 pages)
-    const url = `${REVIEWS_ENDPOINT}?select=id,name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=12`;
-    const res = await fetch(url, {
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    });
-    if(!res.ok){
-      console.error("Error loading reviews:", await res.text());
-      return [];
-    }
-    return await res.json();
+  function updatePageSize(){
+    pageSize = window.matchMedia("(max-width: 900px)").matches ? 1 : 3;
   }
 
-  async function submitReviewToSupabase({name, rating, comment}){
-    const res = await fetch(REVIEWS_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Prefer: "return=minimal"
-      },
-      body: JSON.stringify([{ name, rating, comment }])
-    });
-
-    if(!res.ok){
-      const t = await res.text();
-      throw new Error(t);
-    }
-  }
-
-  function updateRevPageSize(){
-    revPageSize = window.matchMedia("(max-width: 900px)").matches ? 1 : 3;
-  }
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-  function updateReviewsCarousel(){
-    updateRevPageSize();
-
-    const pages = Math.max(1, Math.ceil(totalReviewsLoaded / revPageSize));
-    revIndex = clamp(revIndex, 0, pages - 1);
+  function updateCarousel(){
+    if(!reviewList) return;
+    updatePageSize();
+    const pages = Math.max(1, Math.ceil(totalLoaded / pageSize));
+    revIndex = Math.max(0, Math.min(revIndex, pages - 1));
 
     const viewport = document.getElementById("reviewsViewport");
     const w = viewport ? viewport.clientWidth : 0;
-
     reviewList.style.transform = `translateX(-${revIndex * w}px)`;
 
     if(revPrev) revPrev.disabled = (revIndex === 0);
     if(revNext) revNext.disabled = (revIndex === pages - 1);
 
     if(reviewsCounter){
-      const start = totalReviewsLoaded ? (revIndex * revPageSize + 1) : 0;
-      const end = totalReviewsLoaded ? Math.min((revIndex + 1) * revPageSize, totalReviewsLoaded) : 0;
-      reviewsCounter.textContent = totalReviewsLoaded
-        ? `Showing ${start}–${end} of ${totalReviewsLoaded}`
-        : "";
+      const start = totalLoaded ? (revIndex * pageSize + 1) : 0;
+      const end = totalLoaded ? Math.min((revIndex + 1) * pageSize, totalLoaded) : 0;
+      reviewsCounter.textContent = totalLoaded ? `Showing ${start}–${end} of ${totalLoaded}` : "";
+    }
+  }
+
+  async function fetchReviews(){
+    // Load only recent items for performance
+    const url = `${REVIEWS_ENDPOINT}?select=name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=12`;
+    const res = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    if(!res.ok) {
+      console.error("Reviews fetch error:", await res.text());
+      return [];
+    }
+    return await res.json();
+  }
+
+  async function submitReviewToSupabase(payload){
+    const res = await fetch(REVIEWS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify([payload])
+    });
+    if(!res.ok) {
+      throw new Error(await res.text());
     }
   }
 
   async function renderReviews(){
+    if(!reviewList) return;
     reviewList.innerHTML = "";
-    avgValue.textContent = "—";
+    if(avgValue) avgValue.textContent = "—";
     revIndex = 0;
 
     const arr = await fetchReviews();
-    totalReviewsLoaded = arr.length;
+    totalLoaded = arr.length;
 
-    if(arr.length === 0){
-      requestAnimationFrame(updateReviewsCarousel);
+    if(!arr.length) {
+      updateCarousel();
       return;
     }
 
-    const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0)/arr.length;
-    avgValue.textContent = avg.toFixed(1) + " / 5";
+    // Average
+    const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0) / arr.length;
+    if(avgValue) avgValue.textContent = avg.toFixed(1) + " / 5";
 
+    // Cards
     arr.forEach(r=>{
       const item = document.createElement("div");
       item.className = "review-item";
       const stars = Math.max(0, Math.min(5, Number(r.rating)||0));
       item.innerHTML = `
         <div class="review-top">
-          <div class="review-name">${escapeHtml(r.name || "Anonymous")}</div>
-          <div class="review-stars">${"★".repeat(stars)}${"☆".repeat(5-stars)}</div>
+          <span>${escapeHtml(r.name || "Anonymous")}</span>
+          <span class="review-stars">${"★".repeat(stars)}${"☆".repeat(5-stars)}</span>
         </div>
         <div class="review-text">${escapeHtml(r.comment || "")}</div>
       `;
       reviewList.appendChild(item);
     });
 
-    // Wait for layout so we can measure width correctly (avoids empty space)
-    requestAnimationFrame(updateReviewsCarousel);
+    requestAnimationFrame(updateCarousel);
   }
 
-  if(revPrev && revNext){
-    revPrev.addEventListener("click", ()=>{ revIndex--; updateReviewsCarousel(); });
-    revNext.addEventListener("click", ()=>{ revIndex++; updateReviewsCarousel(); });
-    window.addEventListener("resize", ()=>requestAnimationFrame(updateReviewsCarousel));
+  // Events
+  if(revPrev) revPrev.addEventListener("click", ()=>{ revIndex--; updateCarousel(); });
+  if(revNext) revNext.addEventListener("click", ()=>{ revIndex++; updateCarousel(); });
+  window.addEventListener("resize", ()=> requestAnimationFrame(updateCarousel));
+
+  if(submitReview) {
+    submitReview.addEventListener("click", async ()=>{
+      const name = (reviewName?.value || "").trim() || "Anonymous";
+      const comment = (reviewText?.value || "").trim();
+
+      if(!selectedStars) return alert("Select stars");
+      if(!comment) return alert("Write a comment");
+
+      submitReview.disabled = true;
+      const oldLabel = submitReview.textContent;
+      submitReview.textContent = "Sending...";
+
+      try {
+        await submitReviewToSupabase({ name, rating: selectedStars, comment });
+        if(reviewName) reviewName.value = "";
+        if(reviewText) reviewText.value = "";
+        selectedStars = 0;
+        renderStarPicker();
+        await renderReviews();
+      } catch(e) {
+        console.error(e);
+        alert("Could not submit review");
+      } finally {
+        submitReview.disabled = false;
+        submitReview.textContent = oldLabel;
+      }
+    });
+  }
+
+  if(clearReviews) {
+    clearReviews.addEventListener("click", ()=>{
+      if(reviewName) reviewName.value = "";
+      if(reviewText) reviewText.value = "";
+      selectedStars = 0;
+      renderStarPicker();
+    });
   }
 
   renderStarPicker();
   renderReviews();
 
-  submitReview.addEventListener("click", async ()=>{
-    const name = (reviewName.value||"").trim() || "Anonymous";
-    const comment = (reviewText.value||"").trim();
-
-    if(!selectedStars){ alert("Select stars / Selecciona estrellas"); return; }
-    if(!comment){ alert("Write a comment / Escribe un comentario"); return; }
-
-    if(comment.length > 800){ alert("Comment too long / Comentario muy largo"); return; }
-    if(name.length > 60){ alert("Name too long / Nombre muy largo"); return; }
-
-    const oldText = submitReview.textContent;
-          alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
-
-      reviewName.value = "";
-      reviewText.value = "";
-      selectedStars = 0;
-      renderStarPicker();
-
-      await renderReviews();
-    }catch(err){
-      console.error(err);
-      alert("Could not submit review. / No se pudo enviar la reseña.");
-    }finally{
-      submitReview.disabled = false;
-      submitReview.textContent = oldText;
-    }
-  });
-
-  clearReviews.addEventListener("click", ()=>{
-    reviewName.value = "";
-    reviewText.value = "";
-    selectedStars = 0;
-    renderStarPicker();
-  });
-
-submitReview.innerHTML;
-    submitReview.disabled = true;
-    submitReview.innerHTML = "Sending...";
-
-    try{
-      await submitReviewToSupabase({ name, rating: selectedStars, comment });
-      alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
-
-      reviewName.value = "";
-      reviewText.value = "";
-      selectedStars = 0;
-      renderStarPicker();
-
-      await renderReviews();
-    }catch(err){
-      console.error(err);
-      alert("Could not submit review. / No se pudo enviar la reseña.");
-    }finally{
-      submitReview.disabled = false;
-      submitReview.innerHTML = oldHTML;
-    }
-  });
-
-  // Clear: only clears the form on this device (does not delete public reviews)
-  clearReviews.addEventListener("click", ()=>{
-    reviewName.value = "";
-    reviewText.value = "";
-    selectedStars = 0;
-    renderStarPicker();
-  });
-
-
-  // ---------- Free Estimate Modal ----------
+// ---------- Free Estimate Modal ----------
   const estModal = document.getElementById("estimateModal");
   const estBackdrop = document.getElementById("estimateBackdrop");
   const estClose = document.getElementById("closeEstimate");
@@ -1124,31 +1172,6 @@ submitReview.innerHTML;
   document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
   });
-</script>
-
-<script>
-/* ===== Reviews Layout Fix (safe DOM rearrange) - injected ===== */
-document.addEventListener("DOMContentLoaded", () => {
-  const reviewsSection = document.getElementById("reviews");
-  if (!reviewsSection) return;
-
-  // We expect: a form card on the left, a summary/average card, and a carousel/list
-  const summaryCard = reviewsSection.querySelector(".reviews-right, .reviews-summary, .card.reviews-right");
-  const carousel = reviewsSection.querySelector(".reviews-carousel");
-  const list = reviewsSection.querySelector("#reviewList");
-  if (!summaryCard || !carousel || !list) return;
-
-  // If we already moved it, do nothing
-  if (reviewsSection.querySelector(".reviews-comments")) return;
-
-  // Create a dedicated comments box below the summary card
-  const commentsBox = document.createElement("div");
-  commentsBox.className = "card reviews-comments";
-  commentsBox.appendChild(carousel);
-
-  // Place comments box right after the summary card
-  summaryCard.insertAdjacentElement("afterend", commentsBox);
-});
 </script>
 </body>
 </html>
