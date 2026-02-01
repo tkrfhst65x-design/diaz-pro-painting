@@ -475,7 +475,37 @@
       .review-wrap{ grid-template-columns: 1fr; }
       .navlinks{ justify-content:flex-start; }
     }
-  </style>
+  
+
+/* ===== Final Reviews Layout (injected) ===== */
+
+.reviews-comments{
+  position: relative;
+  padding: 20px 56px;
+}
+
+.reviews-comments .reviews-carousel{
+  padding: 0;
+}
+
+.reviews-comments .review-item{
+  flex: 0 0 calc((100% - 24px) / 3);
+}
+
+.reviews-comments .rev-btn{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 900px){
+  .reviews-comments{
+    padding: 20px 44px;
+  }
+  .reviews-comments .review-item{
+    flex: 0 0 100%;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -1001,12 +1031,7 @@
     if(name.length > 60){ alert("Name too long / Nombre muy largo"); return; }
 
     const oldText = submitReview.textContent;
-    submitReview.disabled = true;
-    submitReview.textContent = "Sending...";
-
-    try{
-      await submitReviewToSupabase({ name, rating: selectedStars, comment });
-      alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
+          alert("Thanks! Your review was submitted. / ¡Gracias! Tu reseña se envió.");
 
       reviewName.value = "";
       reviewText.value = "";
@@ -1099,6 +1124,31 @@ submitReview.innerHTML;
   document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
   });
+</script>
+
+<script>
+/* ===== Reviews Layout Fix (safe DOM rearrange) - injected ===== */
+document.addEventListener("DOMContentLoaded", () => {
+  const reviewsSection = document.getElementById("reviews");
+  if (!reviewsSection) return;
+
+  // We expect: a form card on the left, a summary/average card, and a carousel/list
+  const summaryCard = reviewsSection.querySelector(".reviews-right, .reviews-summary, .card.reviews-right");
+  const carousel = reviewsSection.querySelector(".reviews-carousel");
+  const list = reviewsSection.querySelector("#reviewList");
+  if (!summaryCard || !carousel || !list) return;
+
+  // If we already moved it, do nothing
+  if (reviewsSection.querySelector(".reviews-comments")) return;
+
+  // Create a dedicated comments box below the summary card
+  const commentsBox = document.createElement("div");
+  commentsBox.className = "card reviews-comments";
+  commentsBox.appendChild(carousel);
+
+  // Place comments box right after the summary card
+  summaryCard.insertAdjacentElement("afterend", commentsBox);
+});
 </script>
 </body>
 </html>
