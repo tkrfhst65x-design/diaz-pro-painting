@@ -427,6 +427,7 @@
       .review-wrap{ grid-template-columns: 1fr; }
       .navlinks{ justify-content:flex-start; }
     }
+
   /* ===== Reviews (Supabase) - vertical layout + carousel ===== */
 #reviews .review-wrap.reviews-vertical{
   display:flex;
@@ -550,6 +551,39 @@
   }
   #reviews .reviews-track .review-item{ flex:0 0 100%; }
 }
+
+/* Service Area */
+.service-area{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.service-area-title{
+  color:var(--muted2);
+  font-weight:900;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+.service-pill{
+  background: rgba(255,255,255,.07);
+}
+.service-map-link{
+  color: rgba(255,255,255,.85);
+  font-weight:900;
+  font-size:13px;
+  text-decoration:underline;
+}
+
+/* Contact layout */
+#contact .grid2 > .card:first-child{
+  text-align:center;
+}
+#contact .grid2 > .card:first-child .btn{
+  justify-content:center;
+}
 </style>
 </head>
 
@@ -622,15 +656,15 @@
           <span class="pill" data-i18n="pill_3">Residential & commercial</span>
         </div>
 
-        <p class="small" style="margin-top:12px;">
-          📍 560 34th St SW Apt 301, Wyoming, MI 49509 •
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509"
-            target="_blank" rel="noopener"
-            style="text-decoration:underline;">
-            <span data-i18n="directions_inline">Get directions</span>
+        <div class="service-area">
+          <div class="service-area-title" data-i18n="service_area">Service Area</div>
+          <div class="pill service-pill">📍 Serving Wyoming &amp; Grand Rapids, MI</div>
+          <a class="service-map-link"
+             href="https://www.google.com/maps/search/?api=1&query=Wyoming%20MI"
+             target="_blank" rel="noopener">
+            🗺️ <span data-i18n="view_map">View map</span>
           </a>
-        </p>
+        </div>
 
         <!-- Social buttons -->
         <div class="follow-row">
@@ -748,14 +782,14 @@
   <div class="grid2">
     <div class="card">
       <strong>Díaz Pro Painting LLC</strong><br><br>
-      📍 560 34th St SW Apt 301<br>
-      Wyoming, MI 49509<br><br>
+      🧭 <span data-i18n="service_area">Service Area</span><br>
+      <div class="pill service-pill" style="display:inline-flex; margin-top:10px;">📍 Serving Wyoming &amp; Grand Rapids, MI</div><br><br>
 
       📞 (616) 381-0443<br>
       ✉️ diazpropaintingllc24@gmail.com<br><br>
 
       <a class="btn primary"
-         href="https://www.google.com/maps/search/?api=1&query=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509"
+         href="https://www.google.com/maps/search/?api=1&query=Wyoming%20MI"
          target="_blank" rel="noopener"
          style="width:100%;">🗺️ <span data-i18n="directions_btn">Get Directions</span></a>
 
@@ -771,7 +805,7 @@
       <iframe
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=560%2034th%20St%20SW%20Apt%20301%20Wyoming%20MI%2049509&output=embed">
+        src="https://www.google.com/maps?q=Wyoming%20MI&output=embed">
       </iframe>
     </div>
   </div>
@@ -830,6 +864,8 @@
       pill_2:"Clean & on-time",
       pill_3:"Residential & commercial",
       directions_inline:"Get directions",
+      service_area:"Service Area",
+      view_map:"View map",
       follow_us:"Follow us",
       services_title:"Services",
       services_sub:"Quality prep, clean lines, and a durable finish for interiors and exteriors.",
@@ -870,6 +906,8 @@
       pill_2:"Limpio y puntual",
       pill_3:"Residencial y comercial",
       directions_inline:"Cómo llegar",
+      service_area:"Área de servicio",
+      view_map:"Ver mapa",
       follow_us:"Síguenos",
       services_title:"Servicios",
       services_sub:"Buena preparación, líneas limpias y un acabado duradero para interiores y exteriores.",
@@ -1135,7 +1173,7 @@
   renderStarPicker();
   renderReviews();
 
-// ---------- Free Estimate Modal ----------
+  // ---------- Free Estimate Modal ----------
   const estModal = document.getElementById("estimateModal");
   const estBackdrop = document.getElementById("estimateBackdrop");
   const estClose = document.getElementById("closeEstimate");
@@ -1175,6 +1213,5 @@
 </script>
 </body>
 </html>
-
 
 
