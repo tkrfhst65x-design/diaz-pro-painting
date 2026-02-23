@@ -60,17 +60,6 @@ h2{ font-size:26px; margin:0 0 6px; }
   color:#0b1020;
 }
 
-/* ===== Carousel ===== */
-.carousel{
-  border-radius:22px;
-  overflow:hidden;
-}
-.carousel img{
-  width:100%;
-  height:280px;
-  object-fit:cover;
-}
-
 /* ===== Services ===== */
 .grid3{
   display:grid;
@@ -91,6 +80,7 @@ h2{ font-size:26px; margin:0 0 6px; }
   border:1px solid var(--border);
   cursor:pointer;
   position:relative;
+  background:black;
 }
 
 .gallery-item img,
@@ -98,6 +88,7 @@ h2{ font-size:26px; margin:0 0 6px; }
   width:100%;
   height:150px;
   object-fit:cover;
+  display:block;
 }
 
 .badge{
@@ -116,7 +107,7 @@ h2{ font-size:26px; margin:0 0 6px; }
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,.88);
   z-index:9999;
   align-items:center;
   justify-content:center;
@@ -150,18 +141,13 @@ h2{ font-size:26px; margin:0 0 6px; }
 
 /* ===== Reviews ===== */
 .reviews-viewport{ overflow:hidden; }
-.reviews-track{
-  display:flex;
-  flex-wrap:nowrap;
-  min-width:0;
-}
 
 .review-item{
-  flex:0 0 100%;
   border:1px solid var(--border);
   border-radius:18px;
   padding:14px;
   background:var(--panel);
+  margin-top:10px;
   min-width:0;
   overflow:hidden;
 }
@@ -170,7 +156,7 @@ h2{ font-size:26px; margin:0 0 6px; }
   color:var(--muted);
   margin-top:6px;
 
-  /* ✅ FIX DEFINITIVO */
+  /* ✅ FIX DEFINITIVO MOBILE */
   white-space:normal;
   overflow-wrap:anywhere;
   word-break:break-word;
@@ -188,7 +174,7 @@ h2{ font-size:26px; margin:0 0 6px; }
 <section class="section">
   <div class="card">
     <h1>Professional Painting Services</h1>
-    <div class="sub">Residential & Commercial</div>
+    <div class="sub">Residential & Commercial Painting</div>
 
     <div class="buttons">
       <a class="btn primary" href="tel:+16163810443">📞 Call</a>
@@ -202,9 +188,9 @@ h2{ font-size:26px; margin:0 0 6px; }
 <section class="section">
   <h2>Services</h2>
   <div class="grid3">
-    <div class="card"><b>Interior Painting</b><div class="sub">Walls, ceilings, trim</div></div>
-    <div class="card"><b>Exterior Painting</b><div class="sub">Prep & finish</div></div>
-    <div class="card"><b>Repairs</b><div class="sub">Drywall & patches</div></div>
+    <div class="card"><b>Interior Painting</b><div class="sub">Walls • Ceilings • Trim</div></div>
+    <div class="card"><b>Exterior Painting</b><div class="sub">Prep • Prime • Finish</div></div>
+    <div class="card"><b>Repairs</b><div class="sub">Drywall • Patch • Texture</div></div>
   </div>
 </section>
 
@@ -215,16 +201,15 @@ h2{ font-size:26px; margin:0 0 6px; }
 </section>
 
 <!-- ===== REVIEWS ===== -->
-<section class="section">
+<section class="section" id="reviews">
   <h2>Reviews</h2>
-  <div class="reviews-viewport">
-    <div class="reviews-track" id="reviewList"></div>
-  </div>
+  <div class="reviews-viewport" id="reviewList"></div>
 </section>
 
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox">
   <div id="lbMedia"></div>
+
   <div class="lb-controls">
     <button class="lb-btn" id="lbPrev">‹</button>
     <button class="lb-btn" id="lbClose">✕</button>
@@ -233,15 +218,18 @@ h2{ font-size:26px; margin:0 0 6px; }
 </div>
 
 <script>
-/* ===== Gallery Items ===== */
+/* =========================
+   GALERÍA — ARCHIVOS EN RAÍZ
+   ========================= */
+
 const ITEMS=[
-  {type:"image",src:"DiazProPainting/images/01.jpg"},
-  {type:"image",src:"DiazProPainting/images/02.jpg"},
-  {type:"image",src:"DiazProPainting/images/03.jpg"},
-  {type:"image",src:"DiazProPainting/images/04.jpg"},
-  {type:"image",src:"DiazProPainting/images/05.jpg"},
-  {type:"video",src:"DiazProPainting/images/06.mp4"},
-  {type:"video",src:"DiazProPainting/images/07.mp4"}
+  {type:"image",src:"01.jpg"},
+  {type:"image",src:"02.jpg"},
+  {type:"image",src:"03.jpg"},
+  {type:"image",src:"04.jpg"},
+  {type:"image",src:"05.jpg"},
+  {type:"video",src:"06.mp4"},
+  {type:"video",src:"07.mp4"}
 ];
 
 const grid=document.getElementById("galleryGrid");
@@ -263,6 +251,7 @@ ITEMS.forEach((item,i)=>{
     v.src=item.src;
     v.muted=true;
     v.playsInline=true;
+    v.preload="metadata";
     div.appendChild(v);
   } else{
     const img=document.createElement("img");
@@ -290,6 +279,7 @@ function closeLB(){
 function renderLB(){
   const item=ITEMS[current];
   lbMedia.innerHTML="";
+
   if(item.type==="video"){
     const v=document.createElement("video");
     v.src=item.src;
@@ -307,14 +297,18 @@ lbClose.onclick=closeLB;
 lbPrev.onclick=()=>{ if(current>0){current--;renderLB();}};
 lbNext.onclick=()=>{ if(current<ITEMS.length-1){current++;renderLB();}};
 
-/* ===== Demo Reviews ===== */
+/* =========================
+   REVIEWS DEMO
+   ========================= */
+
 const reviews=[
- "Excelente trabajo. Muy responsables, puntuales y detallistas. Volvería a contratar.",
+ "Excelente trabajo. Muy responsables, puntuales y detallistas. Volvería a contratar sin dudas.",
  "Very professional finish and clean work.",
  "Highly recommended."
 ];
 
 const reviewList=document.getElementById("reviewList");
+
 reviews.forEach(r=>{
   const div=document.createElement("div");
   div.className="review-item";
