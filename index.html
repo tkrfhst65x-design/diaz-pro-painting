@@ -137,22 +137,26 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.22);
       overflow:hidden;
-      min-height: 280px;
+      min-height: 340px; /* ✅ Option A: slightly bigger frame */
       display:flex;
       align-items:center;
       justify-content:center;
       position:relative;
-      padding:16px;
+      padding:0;          /* ✅ remove inner padding so image can fill */
       min-width:0;
     }
     .carousel-slide{ display:none; width:100%; height:100%; }
     .carousel-slide.active{ display:block; }
+
+    /* ✅ OPTION A: fill the frame (cover) */
     .carousel img{
       width:100%;
-      height: 260px;
-      object-fit: contain;
-      filter: drop-shadow(0 18px 28px rgba(0,0,0,.45));
+      height: 340px;
+      object-fit: cover;        /* ✅ fills the box */
+      object-position: center;  /* ✅ keep centered */
+      display:block;
     }
+
     .dots{
       position:absolute;
       bottom:12px;
@@ -160,6 +164,7 @@
       transform: translateX(-50%);
       display:flex;
       gap:8px;
+      z-index:2;
     }
     .dot{
       width:10px;
@@ -589,6 +594,11 @@
     @media (max-width: 980px){
       .banner-content{ grid-template-columns: 1fr; }
       h1{ font-size:34px; }
+
+      /* ✅ Option A for mobile: taller frame so it still fills nicely */
+      .carousel{ min-height: 280px; }
+      .carousel img{ height: 280px; }
+
       .grid3{ grid-template-columns: 1fr; }
       .grid2{ grid-template-columns: 1fr; }
       .navlinks{ justify-content:flex-start; }
@@ -606,7 +616,7 @@
       <div class="badge">DP</div>
       <div style="min-width:0;">
         <div class="brand-title">Díaz Pro Painting LLC</div>
-        <div class="brand-sub">Honest & Professional Service</div>
+        <div class="brand-sub">Honest &amp; Professional Service</div>
       </div>
     </div>
 
@@ -644,7 +654,7 @@
       <div class="hero">
         <h1>Professional Painting Services</h1>
         <p class="lead">
-          Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.
+          Residential &amp; commercial painting in Grand Rapids &amp; Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.
         </p>
 
         <div class="buttons">
@@ -657,8 +667,8 @@
 
         <div class="pills">
           <span class="pill">Free estimates</span>
-          <span class="pill">Clean & on-time</span>
-          <span class="pill">Residential & commercial</span>
+          <span class="pill">Clean &amp; on-time</span>
+          <span class="pill">Residential &amp; commercial</span>
         </div>
 
         <a class="btn primary" href="#" id="openEstimateBanner" style="margin-top:12px;">🧾 Free Estimate</a>
@@ -681,7 +691,7 @@
       <p>Prep, scrape, sand, prime and weather-resistant coatings.</p>
     </div>
     <div class="card">
-      <h3>Repairs & Drywall</h3>
+      <h3>Repairs &amp; Drywall</h3>
       <p>Repairs, patches, texture blending and spot paint matching.</p>
     </div>
   </div>
@@ -691,7 +701,7 @@
 <section id="gallery" class="section">
   <h2>Gallery</h2>
   <p class="sub">Tap any photo/video to open full screen. Use arrows or swipe on mobile.</p>
-  <div class="gallery-grid" id="galleryGrid" aria-label="Photo & video gallery"></div>
+  <div class="gallery-grid" id="galleryGrid" aria-label="Photo &amp; video gallery"></div>
 </section>
 
 <section id="reviews" class="section">
@@ -1057,7 +1067,6 @@
   }
 
   function updateCarousel(){
-    if(!reviewList) return;
     updatePageSize();
 
     const pages = Math.max(1, Math.ceil(totalLoaded / pageSize));
@@ -1069,14 +1078,12 @@
     reviewList.style.transform = `translateX(-${revIndex * viewportW}px)`;
     reviewList.style.width = (viewportW * pages) + "px";
 
-    if(revPrev) revPrev.disabled = (revIndex === 0);
-    if(revNext) revNext.disabled = (revIndex === pages - 1);
+    revPrev.disabled = (revIndex === 0);
+    revNext.disabled = (revIndex === pages - 1);
 
-    if(reviewsCounter){
-      const start = totalLoaded ? (revIndex * pageSize + 1) : 0;
-      const end = totalLoaded ? Math.min((revIndex + 1) * pageSize, totalLoaded) : 0;
-      reviewsCounter.textContent = totalLoaded ? `Showing ${start}–${end} of ${totalLoaded}` : "";
-    }
+    const start = totalLoaded ? (revIndex * pageSize + 1) : 0;
+    const end = totalLoaded ? Math.min((revIndex + 1) * pageSize, totalLoaded) : 0;
+    reviewsCounter.textContent = totalLoaded ? `Showing ${start}–${end} of ${totalLoaded}` : "";
   }
 
   async function fetchReviews(){
@@ -1104,7 +1111,7 @@
 
   async function renderReviews(){
     reviewList.innerHTML = "";
-    if(avgValue) avgValue.textContent = "—";
+    avgValue.textContent = "—";
     revIndex = 0;
 
     const arr = await fetchReviews();
@@ -1113,7 +1120,7 @@
     if(!arr.length) { updateCarousel(); return; }
 
     const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0) / arr.length;
-    if(avgValue) avgValue.textContent = "Average: " + avg.toFixed(1) + " / 5";
+    avgValue.textContent = "Average: " + avg.toFixed(1) + " / 5";
 
     arr.forEach(r=>{
       const item = document.createElement("div");
@@ -1209,9 +1216,6 @@
   document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
   });
-
-  // ---------- Debug helper (optional): show missing files in console ----------
-  // If images still don't appear, open DevTools -> Console and look for 404 in Network.
 </script>
 </body>
 </html>
