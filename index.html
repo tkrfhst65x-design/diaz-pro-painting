@@ -1,322 +1,1218 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Díaz Pro Painting LLC</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Díaz Pro Painting LLC</title>
+  <meta name="description" content="Díaz Pro Painting LLC — Painting services in Wyoming & Grand Rapids, MI. Free estimates." />
 
-<style>
-:root{
-  --bg:#070b14;
-  --panel:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
-  --text:rgba(255,255,255,.92);
-  --muted:rgba(255,255,255,.65);
-  --red:#ff4d4d;
-  --orange:#ff8a4c;
-}
+  <style>
+    :root{
+      --bg:#070b14;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --red:#ff4d4d;
+      --orange:#ff8a4c;
+      --shadow: 0 18px 45px rgba(0,0,0,.55);
+      --radius: 22px;
+    }
 
-*{ box-sizing:border-box; }
+    *{ box-sizing:border-box; }
 
-html,body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden; /* ✅ FIX GLOBAL */
-}
+    html, body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1000px 600px at 70% -10%, rgba(255,77,77,.18), transparent 60%),
+        radial-gradient(900px 600px at 10% 10%, rgba(255,138,76,.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(50,213,131,.08), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.35;
 
-.section{
-  max-width:1200px;
-  margin:auto;
-  padding:28px 16px;
-}
+      /* ✅ FIX GLOBAL: evita scroll horizontal */
+      overflow-x:hidden !important;
+      max-width:100%;
+    }
 
-h1{ font-size:42px; margin:0 0 10px; }
-h2{ font-size:26px; margin:0 0 6px; }
-.sub{ color:var(--muted); font-size:14px; margin-bottom:18px; }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
 
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:16px;
-}
+    /* NAV */
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:16px 16px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,11,20,.78);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .badge{
+      width:42px; height:42px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      font-weight:900;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 10px 25px rgba(255,77,77,.15);
+      flex:0 0 auto;
+    }
+    .brand-title{ font-weight:900; letter-spacing:.2px; }
+    .brand-sub{ font-size:12px; color:var(--muted2); margin-top:2px; }
 
-/* ===== Buttons ===== */
-.buttons{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-.btn{
-  padding:12px 16px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--text);
-  font-weight:800;
-  cursor:pointer;
-}
-.btn.primary{
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  border:none;
-  color:#0b1020;
-}
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      min-width:0;
+    }
+    .navlinks a{
+      font-size:14px;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:12px;
+      transition:.2s;
+      white-space:nowrap;
+    }
+    .navlinks a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+    .cta{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color:#0b1020 !important;
+      font-weight:900;
+      padding:10px 14px !important;
+      box-shadow: 0 12px 30px rgba(255,77,77,.18);
+    }
 
-/* ===== Services ===== */
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;
-}
+    /* BANNER */
+    .banner{
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 16px 10px;
+    }
+    .banner-shell{
+      position:relative;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .banner-bg{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 80% 10%, rgba(255,77,77,.22), transparent 60%),
+        radial-gradient(700px 450px at 30% 30%, rgba(255,138,76,.18), transparent 60%),
+        radial-gradient(800px 550px at 30% 110%, rgba(50,213,131,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
+      pointer-events:none;
+    }
+    .banner-content{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap:18px;
+      padding:18px;
+      align-items:stretch;
+      min-width:0;
+    }
 
-/* ===== Gallery ===== */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:14px;
-}
+    /* HERO carousel */
+    .carousel{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      min-height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      padding:16px;
+      min-width:0;
+    }
+    .carousel-slide{ display:none; width:100%; height:100%; }
+    .carousel-slide.active{ display:block; }
+    .carousel img{
+      width:100%;
+      height: 260px;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,.45));
+    }
+    .dots{
+      position:absolute;
+      bottom:12px;
+      left:50%;
+      transform: translateX(-50%);
+      display:flex;
+      gap:8px;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background: rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.15);
+      cursor:pointer;
+    }
+    .dot.active{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 0 0 3px rgba(255,77,77,.18);
+    }
 
-.gallery-item{
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  cursor:pointer;
-  position:relative;
-  background:black;
-}
+    .hero{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding:18px;
+      min-width:0;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:40px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+      font-weight: 950;
+      text-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    .lead{ color:var(--muted); font-size:14px; margin:0 0 14px; }
 
-.gallery-item img,
-.gallery-item video{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  display:block;
-}
+    .buttons{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight: 900;
+      cursor:pointer;
+      transition:.2s;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .btn.primary{
+      color:#0b1020;
+      border:none;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 14px 30px rgba(255,77,77,.18);
+    }
+    .btn.whatsapp{
+      background: linear-gradient(135deg, #2bd46f, #1dbf73);
+      border:none;
+      color:#05130b;
+    }
 
-.badge{
-  position:absolute;
-  top:8px;
-  left:8px;
-  background:rgba(0,0,0,.6);
-  padding:5px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-}
+    .pills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      max-width:100%;
+    }
 
-/* ===== Lightbox ===== */
-.lightbox{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.88);
-  z-index:9999;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  padding:20px;
-}
-.lightbox[open]{ display:flex; }
+    /* SECTIONS */
+    .section{ max-width:1200px; margin:0 auto; padding:24px 16px; }
+    h2{ margin:0 0 10px; font-size:26px; letter-spacing:-.2px; font-weight: 950; }
+    .sub{ color:var(--muted); margin:0 0 18px; font-size:14px; }
 
-.lightbox img,
-.lightbox video{
-  max-width:95vw;
-  max-height:80vh;
-  border-radius:18px;
-}
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+    .card{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      overflow:hidden; /* ✅ prevents overflow */
+      min-width:0;
+    }
+    .card h3{ margin:0 0 6px; font-size:16px; font-weight:950; }
+    .card p{ margin:0; color:var(--muted); font-size:13px; }
 
-.lb-controls{
-  margin-top:16px;
-  display:flex;
-  gap:12px;
-}
+    /* ===== GALLERY ===== */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+      min-width:0;
+    }
+    .gallery-item{
+      position:relative;
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      cursor:pointer;
+      user-select:none;
+      min-width:0;
+    }
+    .gallery-item .media{
+      width:100%;
+      height: 150px;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      transition: transform .2s ease, filter .2s ease;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .gallery-item:hover .media{
+      transform: scale(1.06);
+      filter: saturate(1.10) contrast(1.06);
+    }
+    .gallery-badge{
+      position:absolute;
+      top:10px;
+      left:10px;
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:900;
+      color:rgba(255,255,255,.92);
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
 
-.lb-btn{
-  padding:10px 14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:white;
-  font-size:18px;
-  cursor:pointer;
-}
+    /* Lightbox */
+    .lightbox{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:10000;
+    }
+    .lightbox[aria-hidden="false"]{ display:block; }
 
-/* ===== Reviews ===== */
-.reviews-viewport{ overflow:hidden; }
+    .lightbox-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(6px);
+    }
+    .lightbox-ui{
+      position:relative;
+      height:100dvh;
+      display:flex;
+      flex-direction:column;
+      pointer-events:none;
+    }
+    .lightbox-topbar{
+      pointer-events:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 16px;
+      gap:10px;
+    }
+    .lightbox-title{
+      font-weight:950;
+      color: rgba(255,255,255,.92);
+      font-size:14px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width:70vw;
+    }
+    .lightbox-close{
+      pointer-events:auto;
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      cursor:pointer;
+      font-size:18px;
+      font-weight:900;
+    }
+    .lightbox-stage{
+      position:relative;
+      flex:1 1 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 6px 14px 18px;
+      min-height:0;
+      pointer-events:auto;
+    }
+    .lightbox-media{
+      max-width: min(1200px, 96vw);
+      max-height: calc(100dvh - 120px);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      box-shadow: 0 22px 60px rgba(0,0,0,.65);
+      object-fit: contain;
+    }
+    .lightbox-nav{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 8px;
+      pointer-events:none;
+    }
+    .lightbox-btn{
+      pointer-events:auto;
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      cursor:pointer;
+      font-size:20px;
+      font-weight:900;
+      display:grid;
+      place-items:center;
+    }
+    .lightbox-btn:disabled{ opacity:.35; cursor:not-allowed; }
+    .lightbox-counter{
+      pointer-events:none;
+      position:absolute;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      color: rgba(255,255,255,.75);
+      font-size:12px;
+      font-weight:900;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:8px 12px;
+      backdrop-filter: blur(10px);
+    }
 
-.review-item{
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:14px;
-  background:var(--panel);
-  margin-top:10px;
-  min-width:0;
-  overflow:hidden;
-}
+    /* ===== REVIEWS ===== */
+    /* ✅ Strong overflow protection */
+    #reviews, #reviews *{ max-width:100%; }
+    #reviews .reviews-carousel,
+    #reviews .reviews-viewport{ overflow:hidden; max-width:100%; }
+    #reviews .reviews-track{
+      display:flex;
+      gap:12px;
+      transition:transform .35s ease;
+      will-change:transform;
+      min-width:0 !important;
+      max-width:100% !important;
+    }
+    #reviews .review-item{
+      flex:0 0 calc((100% - 24px)/3);
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:12px;
+      min-width:0 !important;
+      overflow:hidden !important;
+    }
+    #reviews .review-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:700;
+      min-width:0;
+    }
+    #reviews .review-top span{
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    #reviews .review-stars{ color:#ffd166; flex:0 0 auto; }
+    #reviews .review-text{
+      margin-top:8px;
+      color:rgba(255,255,255,.80);
+      line-height:1.45;
 
-.review-text{
-  color:var(--muted);
-  margin-top:6px;
+      /* ✅ THE FIX for long comments */
+      white-space:normal !important;
+      overflow-wrap:anywhere !important;
+      word-break:break-word !important;
+      max-width:100% !important;
+    }
+    #reviews .rev-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      cursor:pointer;
+      z-index:5;
+    }
+    #reviews .rev-btn.prev{ left:10px; }
+    #reviews .rev-btn.next{ right:10px; }
+    #reviews .rev-btn:disabled{ opacity:.35; cursor:not-allowed; }
 
-  /* ✅ FIX DEFINITIVO MOBILE */
-  white-space:normal;
-  overflow-wrap:anywhere;
-  word-break:break-word;
-}
+    #reviews .reviews-carousel{ position:relative; padding:0 54px; }
+    #reviews .reviews-mini{ margin-top:10px; font-size:12px; color:rgba(255,255,255,.55); }
 
-@media(max-width:900px){
-  h1{ font-size:34px; }
-}
-</style>
+    .field{ display:grid; gap:6px; margin-top:10px; }
+    input, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+      max-width:100%;
+    }
+    textarea{ min-height:86px; resize:vertical; }
+
+    .stars{
+      display:flex;
+      gap:8px;
+      margin-top:6px;
+      min-height:40px;
+      align-items:center;
+      flex-wrap:wrap;
+      max-width:100%;
+    }
+    .star{
+      width:42px; height:42px;
+      display:grid; place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      user-select:none;
+      font-size:22px;
+      line-height:1;
+      color: rgba(255,255,255,.85);
+      transition:.15s;
+    }
+    .star:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .star.active{
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      border:none;
+      color:#0b1020;
+      box-shadow: 0 10px 20px rgba(255,77,77,.18);
+    }
+
+    iframe{ width:100%; min-height:260px; border:0; border-radius: 18px; }
+
+    footer{
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 16px 30px;
+      color:rgba(255,255,255,.55);
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    footer a{ color:rgba(255,255,255,.70); text-decoration:underline; }
+
+    /* MODAL */
+    .modal{ display:none; position:fixed; inset:0; z-index:9999; }
+    .modal[aria-hidden="false"]{ display:block; }
+    .modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(6px); }
+    .modal-dialog{
+      position:relative;
+      max-width:780px;
+      margin:14px auto;
+      width:calc(100% - 20px);
+      height: calc(100dvh - 28px);
+      display:flex;
+      align-items:stretch;
+      min-width:0;
+    }
+    .modal-card{
+      width:100%;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(7,11,20,.92);
+      box-shadow:0 20px 50px rgba(0,0,0,.55);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      flex:0 0 auto;
+      gap:10px;
+      min-width:0;
+    }
+    .modal-title{ font-weight:950; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .modal-body{
+      padding:16px;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      flex:1 1 auto;
+      min-height:0;
+    }
+    .modal-foot{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      padding:16px;
+      border-top:1px solid rgba(255,255,255,.10);
+      flex:0 0 auto;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .banner-content{ grid-template-columns: 1fr; }
+      h1{ font-size:34px; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .navlinks{ justify-content:flex-start; }
+      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+      #reviews .reviews-carousel{ padding:0 44px; }
+      #reviews .review-item{ flex:0 0 100%; }
+    }
+  </style>
 </head>
 
 <body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="badge">DP</div>
+      <div style="min-width:0;">
+        <div class="brand-title">Díaz Pro Painting LLC</div>
+        <div class="brand-sub">Honest & Professional Service</div>
+      </div>
+    </div>
 
-<!-- ===== HERO ===== -->
-<section class="section">
-  <div class="card">
-    <h1>Professional Painting Services</h1>
-    <div class="sub">Residential & Commercial Painting</div>
+    <div class="navlinks">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="cta" id="openEstimateTop">Free Estimate</a>
+    </div>
+  </div>
+</header>
 
-    <div class="buttons">
-      <a class="btn primary" href="tel:+16163810443">📞 Call</a>
-      <a class="btn" href="mailto:diazpropaintingllc24@gmail.com">✉️ Email</a>
-      <a class="btn" href="https://wa.me/16163810443">💬 WhatsApp</a>
+<section class="banner" id="top">
+  <div class="banner-shell">
+    <div class="banner-bg"></div>
+
+    <div class="banner-content">
+      <!-- LEFT -->
+      <div class="carousel" id="carousel">
+        <div class="carousel-slide active"><img src="hero1.png?v=3" alt="Hero 1"></div>
+        <div class="carousel-slide"><img src="hero2.png?v=3" alt="Hero 2"></div>
+        <div class="carousel-slide"><img src="hero3.png?v=3" alt="Hero 3"></div>
+        <div class="carousel-slide"><img src="hero4.png?v=3" alt="Hero 4"></div>
+
+        <div class="dots" aria-label="Carousel controls">
+          <div class="dot active" data-index="0" aria-label="Slide 1"></div>
+          <div class="dot" data-index="1" aria-label="Slide 2"></div>
+          <div class="dot" data-index="2" aria-label="Slide 3"></div>
+          <div class="dot" data-index="3" aria-label="Slide 4"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="hero">
+        <h1>Professional Painting Services</h1>
+        <p class="lead">
+          Residential & commercial painting in Grand Rapids & Wyoming, MI. Clean work, on-time delivery, and a finish you’ll love.
+        </p>
+
+        <div class="buttons">
+          <a class="btn primary" href="tel:+16163810443">📞 Call (616) 381-0443</a>
+          <a class="btn" href="mailto:diazpropaintingllc24@gmail.com">✉️ Email</a>
+          <a class="btn whatsapp"
+             href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate."
+             target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+
+        <div class="pills">
+          <span class="pill">Free estimates</span>
+          <span class="pill">Clean & on-time</span>
+          <span class="pill">Residential & commercial</span>
+        </div>
+
+        <a class="btn primary" href="#" id="openEstimateBanner" style="margin-top:12px;">🧾 Free Estimate</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SERVICES ===== -->
-<section class="section">
+<section id="services" class="section">
   <h2>Services</h2>
+  <p class="sub">Quality prep, clean lines, and a durable finish for interiors and exteriors.</p>
+
   <div class="grid3">
-    <div class="card"><b>Interior Painting</b><div class="sub">Walls • Ceilings • Trim</div></div>
-    <div class="card"><b>Exterior Painting</b><div class="sub">Prep • Prime • Finish</div></div>
-    <div class="card"><b>Repairs</b><div class="sub">Drywall • Patch • Texture</div></div>
+    <div class="card">
+      <h3>Interior Painting</h3>
+      <p>Walls, ceilings, trim, doors. Clean lines and smooth finish.</p>
+    </div>
+    <div class="card">
+      <h3>Exterior Painting</h3>
+      <p>Prep, scrape, sand, prime and weather-resistant coatings.</p>
+    </div>
+    <div class="card">
+      <h3>Repairs & Drywall</h3>
+      <p>Repairs, patches, texture blending and spot paint matching.</p>
+    </div>
   </div>
 </section>
 
-<!-- ===== GALLERY ===== -->
-<section class="section">
+<!-- ✅ GALERÍA (ARCHIVOS EN LA MISMA CARPETA DEL HTML) -->
+<section id="gallery" class="section">
   <h2>Gallery</h2>
-  <div class="gallery-grid" id="galleryGrid"></div>
+  <p class="sub">Tap any photo/video to open full screen. Use arrows or swipe on mobile.</p>
+  <div class="gallery-grid" id="galleryGrid" aria-label="Photo & video gallery"></div>
 </section>
 
-<!-- ===== REVIEWS ===== -->
-<section class="section" id="reviews">
+<section id="reviews" class="section">
   <h2>Reviews</h2>
-  <div class="reviews-viewport" id="reviewList"></div>
+  <p class="sub">Customers can leave a rating and comment. Reviews appear here for everyone.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <strong>Rate our service</strong>
+
+      <div class="field">
+        <label class="small">Name</label>
+        <input id="reviewName" placeholder="Name" />
+      </div>
+
+      <div class="field">
+        <label class="small">Your rating:</label>
+        <div class="stars" id="stars"></div>
+      </div>
+
+      <div class="field">
+        <label class="small">Comment</label>
+        <textarea id="reviewText" placeholder="Great work and very professional..."></textarea>
+      </div>
+
+      <div class="buttons" style="margin-top:12px;">
+        <button class="btn primary" id="submitReview" type="button">Submit Review</button>
+        <button class="btn" id="clearReviews" type="button">Clear</button>
+      </div>
+
+      <div class="sub" style="margin-top:10px;">
+        Note: Reviews are public. If needed, we can hide any review later.
+      </div>
+    </div>
+
+    <div class="card" style="min-width:0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <strong>Latest Reviews</strong>
+        <div id="avgValue" style="color:rgba(255,255,255,.75);font-weight:900;">—</div>
+      </div>
+
+      <div class="reviews-carousel" style="margin-top:12px;">
+        <button class="rev-btn prev" id="revPrev" type="button" aria-label="Previous reviews">‹</button>
+
+        <div class="reviews-viewport" id="reviewsViewport" style="border-radius:16px;">
+          <div class="reviews-track" id="reviewList"></div>
+        </div>
+
+        <button class="rev-btn next" id="revNext" type="button" aria-label="Next reviews">›</button>
+      </div>
+
+      <div class="reviews-mini" id="reviewsCounter"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== LIGHTBOX ===== -->
-<div class="lightbox" id="lightbox">
-  <div id="lbMedia"></div>
+<section id="contact" class="section">
+  <h2>Contact</h2>
 
-  <div class="lb-controls">
-    <button class="lb-btn" id="lbPrev">‹</button>
-    <button class="lb-btn" id="lbClose">✕</button>
-    <button class="lb-btn" id="lbNext">›</button>
+  <div class="grid2">
+    <div class="card" style="text-align:center;">
+      <strong>Díaz Pro Painting LLC</strong><br><br>
+      📍 Serving Wyoming &amp; Grand Rapids, MI<br><br>
+
+      📞 (616) 381-0443<br>
+      ✉️ diazpropaintingllc24@gmail.com<br><br>
+
+      <a class="btn primary"
+         href="https://www.google.com/maps/search/?api=1&query=Wyoming%20MI"
+         target="_blank" rel="noopener"
+         style="width:100%;">🗺️ Get Directions</a>
+
+      <a class="btn whatsapp"
+         href="https://wa.me/16163810443?text=Hello%20D%C3%ADaz%20Pro%20Painting%20LLC!%20I%20would%20like%20a%20free%20estimate."
+         target="_blank" rel="noopener"
+         style="width:100%; margin-top:10px;">💬 Chat on WhatsApp</a>
+
+      <a class="btn primary" href="#" id="openEstimateContact" style="width:100%; margin-top:10px;">🧾 Free Estimate</a>
+    </div>
+
+    <div class="card">
+      <iframe
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Wyoming%20MI&output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© <span id="y"></span> Díaz Pro Painting LLC</div>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="#top">Back to top</a>
+    <a href="tel:+16163810443">Call</a>
+    <a href="https://wa.me/16163810443" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- Estimate Modal -->
+<div id="estimateModal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop" id="estimateBackdrop"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="estTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title" id="estTitle">Free Estimate</div>
+        <button id="closeEstimate" class="btn" type="button" style="padding:10px 12px;">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="sub">Tap the button below to open WhatsApp and request your free estimate.</p>
+        <button class="btn whatsapp" id="sendEstimate" type="button" style="width:100%; margin-top:10px;">
+          💬 Send on WhatsApp
+        </button>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" id="closeEstimateBottom" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+  <div class="lightbox-ui">
+    <div class="lightbox-topbar">
+      <div class="lightbox-title" id="lightboxTitle">Gallery</div>
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">✕</button>
+    </div>
+
+    <div class="lightbox-stage" id="lightboxStage">
+      <div id="lightboxMediaHost"></div>
+
+      <div class="lightbox-nav" aria-label="Gallery navigation">
+        <button class="lightbox-btn" id="lightboxPrev" type="button" aria-label="Previous">‹</button>
+        <button class="lightbox-btn" id="lightboxNext" type="button" aria-label="Next">›</button>
+      </div>
+
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+    </div>
   </div>
 </div>
 
 <script>
-/* =========================
-   GALERÍA — ARCHIVOS EN RAÍZ
-   ========================= */
+  document.getElementById("y").textContent = new Date().getFullYear();
 
-const ITEMS=[
-  {type:"image",src:"01.jpg"},
-  {type:"image",src:"02.jpg"},
-  {type:"image",src:"03.jpg"},
-  {type:"image",src:"04.jpg"},
-  {type:"image",src:"05.jpg"},
-  {type:"video",src:"06.mp4"},
-  {type:"video",src:"07.mp4"}
-];
+  // ---------- HERO Carousel ----------
+  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(document.querySelectorAll(".dot"));
+  let idx = 0;
+  let timer = null;
 
-const grid=document.getElementById("galleryGrid");
-const lb=document.getElementById("lightbox");
-const lbMedia=document.getElementById("lbMedia");
+  function showSlide(i){
+    idx = i;
+    slides.forEach((s,k)=> s.classList.toggle("active", k===idx));
+    dots.forEach((d,k)=> d.classList.toggle("active", k===idx));
+  }
+  function startAuto(){
+    clearInterval(timer);
+    timer = setInterval(()=> showSlide((idx+1) % slides.length), 3000);
+  }
+  dots.forEach(d=>{
+    d.addEventListener("click", ()=>{
+      showSlide(Number(d.dataset.index));
+      startAuto();
+    });
+  });
+  startAuto();
 
-let current=0;
+  // ==========================
+  // ✅ GALLERY: FILES IN SAME FOLDER AS index.html
+  // ==========================
+  const GALLERY_ITEMS = [
+    { type: "image", src: "01.jpg" },
+    { type: "image", src: "02.jpg" },
+    { type: "image", src: "03.jpg" },
+    { type: "image", src: "04.jpg" },
+    { type: "image", src: "05.jpg" },
+    { type: "video", src: "06.mp4" },
+    { type: "video", src: "07.mp4" }
+  ];
 
-ITEMS.forEach((item,i)=>{
-  const div=document.createElement("div");
-  div.className="gallery-item";
+  const galleryGrid = document.getElementById("galleryGrid");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxBackdrop = document.getElementById("lightboxBackdrop");
+  const lightboxClose = document.getElementById("lightboxClose");
+  const lightboxPrev = document.getElementById("lightboxPrev");
+  const lightboxNext = document.getElementById("lightboxNext");
+  const lightboxCounter = document.getElementById("lightboxCounter");
+  const lightboxMediaHost = document.getElementById("lightboxMediaHost");
 
-  const badge=document.createElement("div");
-  badge.className="badge";
-  badge.textContent=item.type==="video"?"Video":"Foto";
+  let galleryIndex = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchActive = false;
 
-  if(item.type==="video"){
-    const v=document.createElement("video");
-    v.src=item.src;
-    v.muted=true;
-    v.playsInline=true;
-    v.preload="metadata";
-    div.appendChild(v);
-  } else{
-    const img=document.createElement("img");
-    img.src=item.src;
-    div.appendChild(img);
+  function buildGallery(){
+    galleryGrid.innerHTML = "";
+    GALLERY_ITEMS.forEach((item, i)=>{
+      const card = document.createElement("div");
+      card.className = "gallery-item";
+      card.tabIndex = 0;
+      card.setAttribute("role","button");
+      card.setAttribute("aria-label", `Open item ${i+1}`);
+
+      const badge = document.createElement("span");
+      badge.className = "gallery-badge";
+      badge.textContent = item.type === "video" ? "Video" : "Photo";
+      card.appendChild(badge);
+
+      if(item.type === "video"){
+        const vid = document.createElement("video");
+        vid.className = "media";
+        vid.src = item.src;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.preload = "metadata";
+        card.appendChild(vid);
+      } else {
+        const img = document.createElement("img");
+        img.className = "media";
+        img.src = item.src;
+        img.alt = `Gallery ${i+1}`;
+        img.loading = "lazy";
+        card.appendChild(img);
+      }
+
+      card.addEventListener("click", ()=> openLightbox(i));
+      card.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(i); }
+      });
+
+      galleryGrid.appendChild(card);
+    });
   }
 
-  div.appendChild(badge);
-  div.onclick=()=>openLB(i);
-  grid.appendChild(div);
-});
-
-function openLB(i){
-  current=i;
-  lb.setAttribute("open","");
-  document.body.style.overflow="hidden";
-  renderLB();
-}
-
-function closeLB(){
-  lb.removeAttribute("open");
-  document.body.style.overflow="";
-}
-
-function renderLB(){
-  const item=ITEMS[current];
-  lbMedia.innerHTML="";
-
-  if(item.type==="video"){
-    const v=document.createElement("video");
-    v.src=item.src;
-    v.controls=true;
-    v.autoplay=true;
-    lbMedia.appendChild(v);
-  } else{
-    const img=document.createElement("img");
-    img.src=item.src;
-    lbMedia.appendChild(img);
+  function openLightbox(i){
+    galleryIndex = i;
+    lightbox.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+    renderLightbox();
   }
-}
+  function closeLightbox(){
+    lightbox.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+    const v = lightboxMediaHost.querySelector("video");
+    if(v) { try { v.pause(); } catch(_){} }
+  }
 
-lbClose.onclick=closeLB;
-lbPrev.onclick=()=>{ if(current>0){current--;renderLB();}};
-lbNext.onclick=()=>{ if(current<ITEMS.length-1){current++;renderLB();}};
+  function renderLightbox(){
+    const total = GALLERY_ITEMS.length || 1;
+    const item = GALLERY_ITEMS[galleryIndex] || GALLERY_ITEMS[0];
 
-/* =========================
-   REVIEWS DEMO
-   ========================= */
+    lightboxMediaHost.innerHTML = "";
 
-const reviews=[
- "Excelente trabajo. Muy responsables, puntuales y detallistas. Volvería a contratar sin dudas.",
- "Very professional finish and clean work.",
- "Highly recommended."
-];
+    if(item.type === "video"){
+      const v = document.createElement("video");
+      v.className = "lightbox-media";
+      v.src = item.src;
+      v.controls = true;
+      v.playsInline = true;
+      v.preload = "metadata";
+      lightboxMediaHost.appendChild(v);
+      setTimeout(()=>{ try { v.play(); } catch(_){} }, 120);
+    } else {
+      const img = document.createElement("img");
+      img.className = "lightbox-media";
+      img.src = item.src;
+      img.alt = "Gallery image";
+      lightboxMediaHost.appendChild(img);
+    }
 
-const reviewList=document.getElementById("reviewList");
+    lightboxCounter.textContent = `${galleryIndex + 1} / ${total}`;
+    lightboxPrev.disabled = (galleryIndex <= 0);
+    lightboxNext.disabled = (galleryIndex >= total - 1);
+  }
 
-reviews.forEach(r=>{
-  const div=document.createElement("div");
-  div.className="review-item";
-  div.innerHTML=`<div class="review-text">${r}</div>`;
-  reviewList.appendChild(div);
-});
+  function prevItem(){ if(galleryIndex > 0){ galleryIndex--; renderLightbox(); } }
+  function nextItem(){ if(galleryIndex < GALLERY_ITEMS.length - 1){ galleryIndex++; renderLightbox(); } }
+
+  lightboxBackdrop.addEventListener("click", closeLightbox);
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightboxPrev.addEventListener("click", prevItem);
+  lightboxNext.addEventListener("click", nextItem);
+
+  document.addEventListener("keydown", (e)=>{
+    if(lightbox.getAttribute("aria-hidden") === "false"){
+      if(e.key === "Escape") closeLightbox();
+      if(e.key === "ArrowLeft") prevItem();
+      if(e.key === "ArrowRight") nextItem();
+    }
+  });
+
+  function onTouchStart(e){
+    if(lightbox.getAttribute("aria-hidden") !== "false") return;
+    if(!e.touches || e.touches.length !== 1) return;
+    touchActive = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }
+  function onTouchEnd(e){
+    if(!touchActive || lightbox.getAttribute("aria-hidden") !== "false") return;
+    touchActive = false;
+    const t = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+    if(!t) return;
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+    if(Math.abs(dy) > Math.abs(dx)) return;
+    if(dx > 50) prevItem();
+    if(dx < -50) nextItem();
+  }
+  document.getElementById("lightboxStage").addEventListener("touchstart", onTouchStart, {passive:true});
+  document.getElementById("lightboxStage").addEventListener("touchend", onTouchEnd, {passive:true});
+
+  buildGallery();
+
+  // ---------- Reviews (Supabase) ----------
+  const starWrap = document.getElementById("stars");
+  const submitReview = document.getElementById("submitReview");
+  const reviewName = document.getElementById("reviewName");
+  const reviewText = document.getElementById("reviewText");
+  const reviewList = document.getElementById("reviewList");
+  const avgValue = document.getElementById("avgValue");
+  const clearReviews = document.getElementById("clearReviews");
+
+  const revPrev = document.getElementById("revPrev");
+  const revNext = document.getElementById("revNext");
+  const reviewsCounter = document.getElementById("reviewsCounter");
+
+  const SUPABASE_URL = "https://vdmziwjjlejpjqjmtift.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_GwgON26mgy-47QJAu6qh0w_AsF3CEfo";
+  const REVIEWS_ENDPOINT = `${SUPABASE_URL}/rest/v1/reviews`;
+
+  let selectedStars = 0;
+  let revIndex = 0;
+  let pageSize = 3;
+  let totalLoaded = 0;
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+
+  function renderStarPicker(){
+    starWrap.innerHTML = "";
+    for(let i=1;i<=5;i++) {
+      const s = document.createElement("div");
+      s.className = "star" + (i<=selectedStars ? " active" : "");
+      s.textContent = "★";
+      s.title = i + " / 5";
+      s.addEventListener("click", ()=>{
+        selectedStars = i;
+        renderStarPicker();
+      });
+      starWrap.appendChild(s);
+    }
+  }
+
+  function updatePageSize(){
+    pageSize = window.matchMedia("(max-width: 980px)").matches ? 1 : 3;
+  }
+
+  function updateCarousel(){
+    if(!reviewList) return;
+    updatePageSize();
+
+    const pages = Math.max(1, Math.ceil(totalLoaded / pageSize));
+    revIndex = Math.max(0, Math.min(revIndex, pages - 1));
+
+    const viewport = document.getElementById("reviewsViewport");
+    const viewportW = viewport ? viewport.getBoundingClientRect().width : 0;
+
+    reviewList.style.transform = `translateX(-${revIndex * viewportW}px)`;
+    reviewList.style.width = (viewportW * pages) + "px";
+
+    if(revPrev) revPrev.disabled = (revIndex === 0);
+    if(revNext) revNext.disabled = (revIndex === pages - 1);
+
+    if(reviewsCounter){
+      const start = totalLoaded ? (revIndex * pageSize + 1) : 0;
+      const end = totalLoaded ? Math.min((revIndex + 1) * pageSize, totalLoaded) : 0;
+      reviewsCounter.textContent = totalLoaded ? `Showing ${start}–${end} of ${totalLoaded}` : "";
+    }
+  }
+
+  async function fetchReviews(){
+    const url = `${REVIEWS_ENDPOINT}?select=name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=18`;
+    const res = await fetch(url, {
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
+    });
+    if(!res.ok) { console.error("Reviews fetch error:", await res.text()); return []; }
+    return await res.json();
+  }
+
+  async function submitReviewToSupabase(payload){
+    const res = await fetch(REVIEWS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify([payload])
+    });
+    if(!res.ok) throw new Error(await res.text());
+  }
+
+  async function renderReviews(){
+    reviewList.innerHTML = "";
+    if(avgValue) avgValue.textContent = "—";
+    revIndex = 0;
+
+    const arr = await fetchReviews();
+    totalLoaded = arr.length;
+
+    if(!arr.length) { updateCarousel(); return; }
+
+    const avg = arr.reduce((a,r)=>a+(Number(r.rating)||0),0) / arr.length;
+    if(avgValue) avgValue.textContent = "Average: " + avg.toFixed(1) + " / 5";
+
+    arr.forEach(r=>{
+      const item = document.createElement("div");
+      item.className = "review-item";
+      const stars = Math.max(0, Math.min(5, Number(r.rating)||0));
+      item.innerHTML = `
+        <div class="review-top">
+          <span title="${escapeHtml(r.name || "Anonymous")}">${escapeHtml(r.name || "Anonymous")}</span>
+          <span class="review-stars">${"★".repeat(stars)}${"☆".repeat(5-stars)}</span>
+        </div>
+        <div class="review-text">${escapeHtml(r.comment || "")}</div>
+      `;
+      reviewList.appendChild(item);
+    });
+
+    requestAnimationFrame(updateCarousel);
+  }
+
+  revPrev.addEventListener("click", ()=>{ revIndex--; updateCarousel(); });
+  revNext.addEventListener("click", ()=>{ revIndex++; updateCarousel(); });
+  window.addEventListener("resize", ()=> requestAnimationFrame(updateCarousel));
+
+  submitReview.addEventListener("click", async ()=>{
+    const name = (reviewName.value || "").trim() || "Anonymous";
+    const comment = (reviewText.value || "").trim();
+
+    if(!selectedStars) return alert("Select stars");
+    if(!comment) return alert("Write a comment");
+
+    submitReview.disabled = true;
+    const oldLabel = submitReview.textContent;
+    submitReview.textContent = "Sending...";
+
+    try {
+      await submitReviewToSupabase({ name, rating: selectedStars, comment });
+      reviewName.value = "";
+      reviewText.value = "";
+      selectedStars = 0;
+      renderStarPicker();
+      await renderReviews();
+    } catch(e) {
+      console.error(e);
+      alert("Could not submit review");
+    } finally {
+      submitReview.disabled = false;
+      submitReview.textContent = oldLabel;
+    }
+  });
+
+  clearReviews.addEventListener("click", ()=>{
+    reviewName.value = "";
+    reviewText.value = "";
+    selectedStars = 0;
+    renderStarPicker();
+  });
+
+  renderStarPicker();
+  renderReviews();
+
+  // ---------- Estimate Modal ----------
+  const estModal = document.getElementById("estimateModal");
+  const estBackdrop = document.getElementById("estimateBackdrop");
+  const estClose = document.getElementById("closeEstimate");
+  const estCloseBottom = document.getElementById("closeEstimateBottom");
+  const openEstimateTop = document.getElementById("openEstimateTop");
+  const openEstimateBanner = document.getElementById("openEstimateBanner");
+  const openEstimateContact = document.getElementById("openEstimateContact");
+  const sendEstimate = document.getElementById("sendEstimate");
+
+  function openModal(){
+    estModal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    estModal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+
+  [openEstimateTop, openEstimateBanner, openEstimateContact].forEach(btn=>{
+    if(btn) btn.addEventListener("click", (e)=>{ e.preventDefault(); openModal(); });
+  });
+  [estBackdrop, estClose, estCloseBottom].forEach(el=>{
+    if(el) el.addEventListener("click", closeModal);
+  });
+
+  sendEstimate.addEventListener("click", ()=>{
+    window.open("https://wa.me/16163810443?text=" + encodeURIComponent(
+      "Hello Díaz Pro Painting LLC! I would like a free estimate."
+    ), "_blank", "noopener");
+    closeModal();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && estModal.getAttribute("aria-hidden")==="false") closeModal();
+  });
+
+  // ---------- Debug helper (optional): show missing files in console ----------
+  // If images still don't appear, open DevTools -> Console and look for 404 in Network.
 </script>
-
 </body>
 </html>
 
